@@ -12,7 +12,7 @@ public class Converter {
     private double beginOfSquare;
     private double endOfSquare;
 
-    public int toInteger(byte[] chromosome) {
+    private int toInteger(byte[] chromosome) {
         int initializeValue = 0;
         int position = 0;
         for (byte b : chromosome) {
@@ -22,7 +22,7 @@ public class Converter {
         return initializeValue;
     }
 
-    public byte[] toBinary(int chromosome, int sizeOfChromosome) {
+    private byte[] toBinary(int chromosome, int sizeOfChromosome) {
         byte[] byteChromosome = new byte[sizeOfChromosome];
         for (int i = 0; i < sizeOfChromosome; i++) {
             byteChromosome[i] = (byte) ((chromosome & (1 << i)) >> i);
