@@ -3,7 +3,6 @@ import crossover.Crossover;
 import crossover.CrossoverImpl;
 import crossover.CrossoverType;
 import evaluator.Evaluator;
-import function.DropwaveFunction;
 import function.EggholderFunction;
 import function.Function;
 import initializer.Initializer;
