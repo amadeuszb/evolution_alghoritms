@@ -4,13 +4,13 @@ import crossover.CrossoverImpl;
 import crossover.CrossoverType;
 import evaluator.Evaluator;
 import function.DropwaveFunction;
-import function.EggholderFunction;
 import function.Function;
 import initializer.Initializer;
 import model.Individual;
 import mutation.*;
-import selection.SelectionMethods;
-import selection.SelectionMethodsImpl;
+import selection.SelectionMethod;
+import selection.SelectionMethodFactory;
+import selection.SelectionMethodType;
 
 import java.util.*;
 
@@ -29,7 +29,7 @@ public class Main {
         endOfSquare = function.getEndOfSquare();
         Converter converter = new Converter(function);
         MutatorImpl populationMutator = new MutatorImpl(converter, function);
-        SelectionMethods selectionMethods = new SelectionMethodsImpl();
+        SelectionMethod selectionMethod = new SelectionMethodFactory().getSelectionMethod(SelectionMethodType.RouletteMaximum);
         Crossover crossover = new CrossoverImpl(converter, function);
         Evaluator evaluator = new Evaluator(function);
         Mutator mutator = new MutatorFactory().getMutator(MutationType.BOUNDARY);
@@ -37,7 +37,7 @@ public class Main {
         LinkedList<Individual> initialPopulation = initializer.getInitialPopulation(sizeOfPopulation, endOfSquare, beginOfSquare);
         for (int i = 0; i < amountOfEras; i++) {
             initialPopulation = evaluator.evaluation(initialPopulation);
-            initialPopulation = selectionMethods.rouletteMinimum(initialPopulation);
+            initialPopulation = (LinkedList<Individual>) selectionMethod.select(initialPopulation);// TODO change all to List
             initialPopulation = crossover.crossover(initialPopulation, 0.8, CrossoverType.ONE_POINT_CROSSOVER);
             initialPopulation = populationMutator.mutatePopulation(initialPopulation, 0.2, mutator);
         }
