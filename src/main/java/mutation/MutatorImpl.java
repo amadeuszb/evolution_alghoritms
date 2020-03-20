@@ -10,23 +10,21 @@ import java.util.Random;
 public class MutatorImpl {
 
     private Converter converter;
-    private Function function;
 
-    public MutatorImpl(Converter converter, Function function) {
+    public MutatorImpl(Converter converter) {
         this.converter = converter;
-        this.function = function;
     }
 
     public LinkedList<Individual> mutatePopulation(LinkedList<Individual> population, double probability, Mutator mutator) {
         Random random = new Random();
         for (Individual individual : population) {
             if (random.nextDouble() < probability) {
-                byte[] ioneBinary = converter.toBinary(individual.getX1(), function.sizeOfBinaryString());
+                byte[] ioneBinary = converter.toBinary(individual.getX1());
                 byte[] newTwoIndividuals = mutator.mutate(ioneBinary);
-                individual.setX1(converter.toDecimal(newTwoIndividuals, function.sizeOfBinaryString()));
-                byte[] ioneBinaryX2 = converter.toBinary(individual.getX2(), function.sizeOfBinaryString());
+                individual.setX1(converter.toDecimal(newTwoIndividuals));
+                byte[] ioneBinaryX2 = converter.toBinary(individual.getX2());
                 byte[] newTwoIndividualsX2 = mutator.mutate(ioneBinaryX2);
-                individual.setX2(converter.toDecimal(newTwoIndividualsX2, function.sizeOfBinaryString()));
+                individual.setX2(converter.toDecimal(newTwoIndividualsX2));
             }
         }
         return population;

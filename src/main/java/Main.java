@@ -1,6 +1,7 @@
 import converter.Converter;
-import crossover.Crossover;
-import crossover.CrossoverImpl;
+import crossover.CrossoverMethodFactory;
+import crossover.CrossoverMethod;
+import crossover.PopulationCrossover;
 import crossover.CrossoverType;
 import evaluator.Evaluator;
 import function.DropwaveFunction;
@@ -28,9 +29,10 @@ public class Main {
         beginOfSquare = function.getBeginOfSquare();
         endOfSquare = function.getEndOfSquare();
         Converter converter = new Converter(function);
-        MutatorImpl populationMutator = new MutatorImpl(converter, function);
+        MutatorImpl populationMutator = new MutatorImpl(converter);
         SelectionMethod selectionMethod = new SelectionMethodFactory().getSelectionMethod(SelectionMethodType.RouletteMaximum);
-        Crossover crossover = new CrossoverImpl(converter, function);
+        PopulationCrossover populationCrossover = new PopulationCrossover(converter);
+        CrossoverMethod crossoverMethod = new CrossoverMethodFactory().getCrossoverMethod(CrossoverType.OnePoint);
         Evaluator evaluator = new Evaluator(function);
         Mutator mutator = new MutatorFactory().getMutator(MutationType.BOUNDARY);
         long startTime = System.nanoTime();
@@ -38,7 +40,7 @@ public class Main {
         for (int i = 0; i < amountOfEras; i++) {
             initialPopulation = evaluator.evaluation(initialPopulation);
             initialPopulation = (LinkedList<Individual>) selectionMethod.select(initialPopulation);// TODO change all to List
-            initialPopulation = crossover.crossover(initialPopulation, 0.8, CrossoverType.ONE_POINT_CROSSOVER);
+            initialPopulation = populationCrossover.crossover(initialPopulation, 0.8, crossoverMethod);
             initialPopulation = populationMutator.mutatePopulation(initialPopulation, 0.2, mutator);
         }
         long endTime = System.nanoTime();
