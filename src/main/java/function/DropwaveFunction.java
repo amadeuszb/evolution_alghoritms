@@ -3,6 +3,7 @@ package function;
 public class DropwaveFunction implements Function {
 
     private double beginOfSquare = -5.12;
+    private double endOfSquare = 5.12;
 
     @Override
     public double getBeginOfSquare() {
@@ -14,7 +15,6 @@ public class DropwaveFunction implements Function {
         return endOfSquare;
     }
 
-    private double endOfSquare = 5.12;
 
     public int sizeOfBinaryString(){
         return (int) Math.ceil(Math.log((endOfSquare-beginOfSquare)*Math.pow(10,6)) + Math.log(1));
