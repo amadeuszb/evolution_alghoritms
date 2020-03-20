@@ -1,3 +1,5 @@
+package model;
+
 public class Individual {
 
     private double x1;

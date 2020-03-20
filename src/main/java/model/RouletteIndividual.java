@@ -1,3 +1,5 @@
+package model;
+
 public class RouletteIndividual implements Comparable<RouletteIndividual>{
 
     private Individual individual;
