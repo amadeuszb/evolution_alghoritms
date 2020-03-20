@@ -4,8 +4,7 @@ public class BoundaryMutator implements Mutator {
     @Override
     public byte[] mutate(byte[] chromosome) {
         byte boundaryValue = chromosome[chromosome.length - 1];
-        if (boundaryValue == 0) chromosome[chromosome.length - 1] = 1;
-        else chromosome[chromosome.length - 1] = 0;
+        chromosome[chromosome.length - 1] = boundaryValue == 0 ? (byte) 1 : (byte) 0;
         return chromosome;
     }
 }
