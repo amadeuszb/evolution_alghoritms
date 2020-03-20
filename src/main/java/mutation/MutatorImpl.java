@@ -1,21 +1,22 @@
 package mutation;
 
 import converter.Converter;
-import function.Function;
 import model.Individual;
 
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class MutatorImpl {
 
     private Converter converter;
+    private final Mutator mutator;
 
-    public MutatorImpl(Converter converter) {
+    public MutatorImpl(Converter converter, Mutator mutator) {
         this.converter = converter;
+        this.mutator = mutator;
     }
 
-    public LinkedList<Individual> mutatePopulation(LinkedList<Individual> population, double probability, Mutator mutator) {
+    public List<Individual> mutatePopulation(List<Individual> population, double probability) {
         Random random = new Random();
         for (Individual individual : population) {
             if (random.nextDouble() < probability) {

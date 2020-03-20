@@ -3,19 +3,21 @@ package crossover;
 import converter.Converter;
 import model.Individual;
 
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class PopulationCrossover {
 
     Random random = new Random();
     Converter converter;
+    private final CrossoverMethod crossoverMethod;
 
-    public PopulationCrossover(Converter converter) {
+    public PopulationCrossover(Converter converter, CrossoverMethod crossoverMethod) {
         this.converter = converter;
+        this.crossoverMethod = crossoverMethod;
     }
 
-    public LinkedList<Individual> crossover(LinkedList<Individual> population, double probability, CrossoverMethod crossoverMethod) {
+    public List<Individual> crossover(List<Individual> population, double probability) {
         int sizeOfPopulation = population.size();
         for (int i = 0; i < sizeOfPopulation; i += 2) {
             if (random.nextDouble() > probability) {

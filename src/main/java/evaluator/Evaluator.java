@@ -3,7 +3,7 @@ package evaluator;
 import function.Function;
 import model.Individual;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public class Evaluator {
 
@@ -13,7 +13,7 @@ public class Evaluator {
         this.function = function;
     }
 
-    public LinkedList<Individual> evaluation(LinkedList<Individual> population) {
+    public List<Individual> evaluation(List<Individual> population) {
         for (Individual individual : population) {
             individual.setY(function.fun(individual.getX1(), individual.getX2()));
         }
