@@ -12,6 +12,7 @@ public interface Mutator {//TODO methods
 
     byte[] twoPointsMutation(byte[] chromosome);
 
-    LinkedList<Individual> mutate(LinkedList<Individual> population);
+    LinkedList<Individual> mutatePopulation(LinkedList<Individual> population, double probability, MutationType mutationType);
+
 }
 

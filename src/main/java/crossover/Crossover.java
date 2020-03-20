@@ -1,5 +1,9 @@
 package crossover;
 
+import model.Individual;
+
+import java.util.LinkedList;
+
 public interface Crossover {
 
     byte[][] onePointCrossover(byte[] individualOne, byte[] individualTwo);
@@ -10,5 +14,6 @@ public interface Crossover {
 
     byte[][] homogeneousCrossover(byte[] individualOne, byte[] individualTwo);
 
+    LinkedList<Individual> crossover(LinkedList<Individual> population, double probability,CrossoverType type);
 
 }

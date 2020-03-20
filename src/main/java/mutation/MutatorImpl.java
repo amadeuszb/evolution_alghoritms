@@ -34,20 +34,29 @@ public class MutatorImpl implements Mutator {
         return new byte[0];
     }
 
-    public LinkedList<Individual> mutate(LinkedList<Individual> population) {
+    public LinkedList<Individual> mutatePopulation(LinkedList<Individual> population, double probability, MutationType mutationType) {
         int sizeOfPopulation = population.size();
         Random random = new Random();
         for (int i = 0; i < sizeOfPopulation; i++) {
-            if (random.nextDouble() < 0.2) {
+            if (random.nextDouble() < probability) {
                 Individual ione = population.get(i);
                 byte[] ioneBinary = converter.toBinary(ione.getX1(), function.sizeOfBinaryString());
-                byte[] newTwoIndividuals = boundaryMutation(ioneBinary);
+                byte[] newTwoIndividuals = mutate(ioneBinary, mutationType);
                 ione.setX1(converter.toDecimal(newTwoIndividuals, function.sizeOfBinaryString()));
                 byte[] ioneBinaryX2 = converter.toBinary(ione.getX2(), function.sizeOfBinaryString());
-                byte[] newTwoIndividualsX2 = boundaryMutation(ioneBinaryX2);
+                byte[] newTwoIndividualsX2 = mutate(ioneBinaryX2, mutationType);
                 ione.setX2(converter.toDecimal(newTwoIndividualsX2, function.sizeOfBinaryString()));
             }
         }
         return population;
+    }
+
+    private byte[] mutate (byte[] individual, MutationType mutationType){
+        switch (mutationType){
+            case BOUNDARY: return boundaryMutation(individual);
+            case TWO_POINTS: return onePointMutation(individual);
+            case ONE_POINT: return twoPointsMutation(individual);
+        }
+        return boundaryMutation(individual);
     }
 }

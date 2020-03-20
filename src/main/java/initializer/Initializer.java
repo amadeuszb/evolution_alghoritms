@@ -7,8 +7,9 @@ import java.util.Random;
 
 public class Initializer {
 
+    private Random random = new Random();
+
     public LinkedList<Individual> getInitialPopulation(int sizeOfPopulation, double beginOfSquare, double endOfSquare) {
-        Random random = new Random();
         LinkedList<Individual> population = new LinkedList<Individual>();
         for (int i = 0; i < sizeOfPopulation; i++) {
             Individual individual = new Individual();
