@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFxApp.PlotController">
+    <top>
+        <AnchorPane BorderPane.alignment="CENTER">
+            <children>
+                <HBox layoutX="45.0" layoutY="14.0" prefHeight="70.0" prefWidth="829.0" styleClass="title-label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <ImageView pickOnBounds="true" preserveRatio="true" styleClass="logo-image" />
+                        <Label fx:id="labelDescription" wrapText="true" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </top>
+    <center>
+        <AnchorPane BorderPane.alignment="CENTER">
+            <children>
+                <VBox AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="30.0">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" styleClass="buttonsBox" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Button fx:id="detailsButton" mnemonicParsing="false" onAction="#handleOnButtonBack" styleClass="backButton" text="Groups list" />
+                            </children>
+                            <opaqueInsets>
+                                <Insets bottom="10.0" />
+                            </opaqueInsets>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label fx:id="groupNameLabel" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="377.0" prefWidth="910.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <LineChart fx:id="chart" legendSide="RIGHT" HBox.hgrow="ALWAYS">
+                                    <xAxis>
+                                        <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis side="LEFT" tickLabelFill="WHITE" />
+                                    </yAxis>
+                                </LineChart>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="sessionLabels" text="Amount of last sessions: " textFill="WHITE" HBox.hgrow="ALWAYS">
+                                    <HBox.margin>
+                                        <Insets top="9.0" />
+                                    </HBox.margin>
+                                    <padding>
+                                        <Insets bottom="9.0" />
+                                    </padding></Label>
+                                <TextField fx:id="numberOfSessionsField" alignment="CENTER_RIGHT" styleClass="sessionFields" />
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="10.0" top="25.0" />
+                            </VBox.margin>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

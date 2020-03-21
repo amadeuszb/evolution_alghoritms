@@ -1,3 +1,5 @@
+package Solution;
+
 import converter.ByteSwitcher;
 import converter.Converter;
 import crossover.CrossoverMethod;

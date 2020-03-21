@@ -1,3 +1,5 @@
+import Solution.SolutionModel;
+import Solution.SolutionModelBuilder;
 import crossover.CrossoverType;
 import evaluator.Evaluator;
 import function.DropwaveFunction;

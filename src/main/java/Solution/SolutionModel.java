@@ -1,3 +1,5 @@
+package Solution;
+
 import crossover.PopulationCrossover;
 import elite.EliteStrategy;
 import evaluator.Evaluator;
