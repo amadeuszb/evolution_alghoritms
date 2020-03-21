@@ -22,6 +22,7 @@ public class Main {
                 .withSelectionMethod(SelectionMethodType.RouletteMaximum)
                 .withCrossoverProbability(0.9)
                 .withMutationProbability(0.05)
+                .withInversionProbability(0.001)
                 .withRandomSeed(1);
 
         SolutionModel solutionModel = modelBuilder.build();

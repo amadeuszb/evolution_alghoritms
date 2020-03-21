@@ -1,3 +1,4 @@
+import converter.ByteSwitcher;
 import converter.Converter;
 import crossover.CrossoverMethod;
 import crossover.CrossoverMethodFactory;
@@ -6,6 +7,8 @@ import crossover.PopulationCrossover;
 import evaluator.Evaluator;
 import function.Function;
 import initializer.Initializer;
+import inversion.InversionOperator;
+import inversion.PopulationInverter;
 import model.Individual;
 import mutation.MutationType;
 import mutation.Mutator;
@@ -26,7 +29,9 @@ public class SolutionModelBuilder {
     private MutationType mutationType;
     private double mutationProbability;
     private double crossoverProbability;
+    private double inversionProbability;
     private Random random = new Random();
+    private ByteSwitcher byteSwitcher = new ByteSwitcher();
 
     public SolutionModelBuilder withPopulationSize(int populationSize) {
         this.populationSize = populationSize;
@@ -63,6 +68,11 @@ public class SolutionModelBuilder {
         return this;
     }
 
+    public SolutionModelBuilder withInversionProbability(double inversionProbability) {
+        this.inversionProbability = inversionProbability;
+        return this;
+    }
+
     public SolutionModelBuilder withRandomSeed(long seed) {
         random.setSeed(seed);
         return this;
@@ -73,10 +83,12 @@ public class SolutionModelBuilder {
         CrossoverMethod crossoverMethod = new CrossoverMethodFactory(random).getCrossoverMethod(crossoverType);
         SelectionMethod selectionMethod = new SelectionMethodFactory(random).getSelectionMethod(selectionMethodType);
         Converter converter = new Converter(function);
-        Mutator mutator = new MutatorFactory(function, converter, random).getMutator(mutationType);
+        Mutator mutator = new MutatorFactory(function, converter, random, byteSwitcher).getMutator(mutationType);
         PopulationCrossover populationCrossover = new PopulationCrossover(converter, crossoverMethod, crossoverProbability, random);
         PopulationMutator populationMutator = new PopulationMutator(converter, mutator, mutationProbability, random);
         Evaluator evaluator = new Evaluator(function);
-        return new SolutionModel(population, evaluator, selectionMethod, populationCrossover, populationMutator);
+        InversionOperator inversionOperator = new InversionOperator(random, byteSwitcher);
+        PopulationInverter populationInverter = new PopulationInverter(inversionOperator,converter,random,inversionProbability);
+        return new SolutionModel(population, evaluator, selectionMethod, populationCrossover, populationMutator, populationInverter);
     }
 }
