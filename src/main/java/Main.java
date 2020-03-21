@@ -19,10 +19,10 @@ public class Main {
                 .withFunction(function)
                 .withMutationType(MutationType.ONE_POINT)
                 .withPopulationSize(sizeOfPopulation)
-                .withSelectionMethod(SelectionMethodType.Tournament)
+                .withSelectionMethod(SelectionMethodType.Best)
                 .withCrossoverProbability(0.9)
                 .withMutationProbability(0.05)
-                .withInversionProbability(0.001)
+                .withInversionProbability(0.01)
                 .withRandomSeed(1)
                 .withElitesCount(10);
 
