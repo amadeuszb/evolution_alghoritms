@@ -5,11 +5,10 @@ import model.RouletteIndividual;
 
 import java.util.*;
 
-public class RouletteMaximumSelection implements SelectionMethod {
-    private final Random random;
+public class RouletteMaximumSelection extends SelectionMethod {
 
-    public RouletteMaximumSelection(Random random){
-        this.random = random;
+    public RouletteMaximumSelection(Random random) {
+        super(random);
     }
 
     @Override
@@ -17,29 +16,15 @@ public class RouletteMaximumSelection implements SelectionMethod {
         double sumOfResults = 0;
         int sizeOfPopulation = population.size();
         for (Individual individual : population) {
-            sumOfResults += Math.abs(individual.getY());
+            sumOfResults += individual.getY();
         }
-        LinkedList<RouletteIndividual> propabilityPopulation = new LinkedList<RouletteIndividual>();
-        for (Individual x : population) {
-            propabilityPopulation.add(new RouletteIndividual(x, 0, (Math.abs(x.getY()) / sumOfResults)));
-        }
-        Collections.sort(propabilityPopulation);
+        LinkedList<RouletteIndividual> probabilityPopulation = new LinkedList<RouletteIndividual>();
         double previousSum = 0;
-        for (RouletteIndividual individual : propabilityPopulation) {
-            individual.setDistribuant(previousSum + individual.getPropability());
-            previousSum += individual.getPropability();
-        }
-        LinkedList<Individual> newPopulation = new LinkedList<Individual>();
-        for (int i = 0; i < sizeOfPopulation; i++) {
-            double randomNumber = random.nextDouble();
-            for (int j = 0; j < sizeOfPopulation; j++) {
-                if (propabilityPopulation.get(j).getDistribuant() > randomNumber) {
-                    newPopulation.add(propabilityPopulation.get(j).getIndividual());
-                    break;
-                }
-            }
+        for (Individual x : population) {
+            previousSum += x.getY() / sumOfResults;
+            probabilityPopulation.add(new RouletteIndividual(x, previousSum));
         }
 
-        return newPopulation;
+        return getNewPopulation(sizeOfPopulation, probabilityPopulation);
     }
 }
