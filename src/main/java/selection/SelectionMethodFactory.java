@@ -18,7 +18,7 @@ public class SelectionMethodFactory {
             case RouletteMinimum:
                 return new RouletteMinimumSelection(random);
             case Tournament:
-                return new TournamentSelection(random);
+                return new TournamentSelection(random, 5); //TODO: 
         }
         throw new IllegalArgumentException();
     }

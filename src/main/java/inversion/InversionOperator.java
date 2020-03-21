@@ -1,7 +1,5 @@
 package inversion;
 
-import converter.ByteSwitcher;
-
 import java.util.Random;
 
 public class InversionOperator {
@@ -18,8 +16,8 @@ public class InversionOperator {
         byte placeholder;
         for (int i = firstBoundary; i < secondBoundary; i++) {
             placeholder = chromosome[i];
-            chromosome[i] = chromosome[secondBoundary-i];
-            chromosome[secondBoundary-i] = placeholder;
+            chromosome[i] = chromosome[secondBoundary - i + firstBoundary];
+            chromosome[secondBoundary - i + firstBoundary] = placeholder;
         }
         return chromosome;
     }

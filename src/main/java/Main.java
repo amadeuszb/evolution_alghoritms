@@ -19,7 +19,7 @@ public class Main {
                 .withFunction(function)
                 .withMutationType(MutationType.ONE_POINT)
                 .withPopulationSize(sizeOfPopulation)
-                .withSelectionMethod(SelectionMethodType.RouletteMaximum)
+                .withSelectionMethod(SelectionMethodType.Tournament)
                 .withCrossoverProbability(0.9)
                 .withMutationProbability(0.05)
                 .withInversionProbability(0.001)
