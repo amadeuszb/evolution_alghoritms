@@ -1,5 +1,4 @@
-package converter;
-
+import converter.Converter;
 import function.DropwaveFunction;
 
 import java.math.BigDecimal;

@@ -22,9 +22,9 @@ public class MutatorFactory {
                 return new BoundaryMutator(converter.toBinary(function.getBeginOfSquare()),
                         converter.toBinary(function.getEndOfSquare()), random);
             case ONE_POINT:
-                return new OnePointMutator();
+                return new OnePointMutator(random);
             case TWO_POINTS:
-                return new TwoPointMutator();
+                return new TwoPointMutator(random);
         }
         throw new IllegalArgumentException();
     }
