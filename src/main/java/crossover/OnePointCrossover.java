@@ -3,7 +3,7 @@ package crossover;
 import java.util.Arrays;
 import java.util.Random;
 
-public class OnePointCrossover implements CrossoverMethod {
+public class OnePointCrossover extends PointCrossover implements CrossoverMethod {
     private final Random random;
 
     public OnePointCrossover(Random random) {
@@ -17,10 +17,7 @@ public class OnePointCrossover implements CrossoverMethod {
         outArray[0] = Arrays.copyOf(individualOne, sizeOfChromosome);
         outArray[1] = Arrays.copyOf(individualTwo, sizeOfChromosome);
         int pointOfCrossover = random.nextInt(sizeOfChromosome);
-        for (int i = pointOfCrossover; i < sizeOfChromosome; i++) {
-            outArray[0][i] = individualTwo[i];
-            outArray[1][i] = individualOne[i];
-        }
+        swapBetweenPoints(individualOne, individualTwo, pointOfCrossover, sizeOfChromosome, outArray);
         return outArray;
     }
 }
