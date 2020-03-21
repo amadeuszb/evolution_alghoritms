@@ -14,6 +14,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -46,14 +47,27 @@ public class PlotController {
         int eras = solutionScore.getEpochs().get(0).size(); //TODO: mocked
         XYChart.Series<String, Double> seriesOfScores = new XYChart.Series<>();
         seriesOfScores.setName("Score");
-        List<Individual> scores = solutionScore.getEpochs().get(0);
         long actual = 0;
-        for(Individual individual: scores){
+        for(Double medium: getMediumScore(solutionScore)){
             actual++;
-            seriesOfScores.getData().add(new XYChart.Data<String, Double>(String.valueOf(actual), individual.getY()));
+            seriesOfScores.getData().add(new XYChart.Data<String, Double>(String.valueOf(actual), medium));
         }
         chart.getData().clear();
         chart.getData().add(seriesOfScores);
+    }
+
+    private LinkedList<Double> getMediumScore(SolutionScore solutionScore){ //TODO: Move to solution score
+        LinkedList<Double> mediumScores = new LinkedList<>();
+        for(List<Individual> individuals: solutionScore.getEpochs()){
+            double sumOfScores = 0;
+            int counter = 0;
+            for (Individual individual: individuals){
+                sumOfScores+=individual.getY();
+                counter++;
+            }
+            mediumScores.add(sumOfScores/counter);
+        }
+        return mediumScores;
     }
 
     public void handleOnButtonBack(ActionEvent actionEvent) {
