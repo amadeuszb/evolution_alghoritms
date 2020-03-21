@@ -3,10 +3,7 @@ package selection;
 import model.Individual;
 import model.RouletteIndividual;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class RouletteMaximumSelection implements SelectionMethod {
     Random random = new Random();
@@ -38,6 +35,7 @@ public class RouletteMaximumSelection implements SelectionMethod {
                 }
             }
         }
+
         return newPopulation;
     }
 }

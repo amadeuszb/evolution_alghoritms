@@ -11,16 +11,18 @@ public class PopulationCrossover {
     Random random = new Random();
     Converter converter;
     private final CrossoverMethod crossoverMethod;
+    private final double crossoverProbability;
 
-    public PopulationCrossover(Converter converter, CrossoverMethod crossoverMethod) {
+    public PopulationCrossover(Converter converter, CrossoverMethod crossoverMethod, double crossoverProbability) {
         this.converter = converter;
         this.crossoverMethod = crossoverMethod;
+        this.crossoverProbability = crossoverProbability;
     }
 
-    public List<Individual> crossover(List<Individual> population, double probability) {
+    public List<Individual> crossover(List<Individual> population) {
         int sizeOfPopulation = population.size();
         for (int i = 0; i < sizeOfPopulation; i += 2) {
-            if (random.nextDouble() > probability) {
+            if (random.nextDouble() > crossoverProbability) {
                 Individual ione = population.get(i);
                 Individual itwo = population.get(i + 1);
                 byte[] ioneBinary = converter.toBinary(ione.getX1());

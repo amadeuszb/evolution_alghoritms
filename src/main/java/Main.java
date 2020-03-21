@@ -9,17 +9,20 @@ import selection.SelectionMethodType;
 import java.util.*;
 
 public class Main {
-    private static int sizeOfPopulation = 500;
-    private static int amountOfEras = 50;
+    private final static int sizeOfPopulation = 500;
+    private final static int amountOfEras = 50;
     private static Function function = new DropwaveFunction();
 
     public static void main(String[] args) {
         SolutionModelBuilder modelBuilder = new SolutionModelBuilder();
-        modelBuilder.withCrossoverType(CrossoverType.OnePoint);
-        modelBuilder.withFunction(function);
-        modelBuilder.withMutationType(MutationType.BOUNDARY);
-        modelBuilder.withPopulationSize(sizeOfPopulation);
-        modelBuilder.withSelectionMethod(SelectionMethodType.RouletteMaximum);
+        modelBuilder.withCrossoverType(CrossoverType.OnePoint)
+                .withFunction(function)
+                .withMutationType(MutationType.BOUNDARY)
+                .withPopulationSize(sizeOfPopulation)
+                .withSelectionMethod(SelectionMethodType.RouletteMaximum)
+                .withCrossoverProbability(0.9)
+                .withMutationProbability(0.05);
+
         SolutionModel solutionModel = modelBuilder.build();
 
         long startTime = System.nanoTime();

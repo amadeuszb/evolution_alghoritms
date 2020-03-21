@@ -6,20 +6,22 @@ import model.Individual;
 import java.util.List;
 import java.util.Random;
 
-public class MutatorImpl {
+public class PopulationMutator {
 
-    private Converter converter;
+    private final Converter converter;
     private final Mutator mutator;
+    private final double mutationProbability;
+    private final Random random = new Random();
 
-    public MutatorImpl(Converter converter, Mutator mutator) {
+    public PopulationMutator(Converter converter, Mutator mutator, double mutationProbability) {
         this.converter = converter;
         this.mutator = mutator;
+        this.mutationProbability = mutationProbability;
     }
 
-    public List<Individual> mutatePopulation(List<Individual> population, double probability) {
-        Random random = new Random();
+    public List<Individual> mutatePopulation(List<Individual> population) {
         for (Individual individual : population) {
-            if (random.nextDouble() < probability) {
+            if (random.nextDouble() < mutationProbability) {
                 byte[] ioneBinary = converter.toBinary(individual.getX1());
                 byte[] newTwoIndividuals = mutator.mutate(ioneBinary);
                 individual.setX1(converter.toDecimal(newTwoIndividuals));

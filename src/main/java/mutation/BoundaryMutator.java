@@ -1,10 +1,24 @@
 package mutation;
 
+import java.util.Random;
+
 public class BoundaryMutator implements Mutator {
+    private final byte[] upperBound;
+    private final byte[] lowerBound;
+
+    public BoundaryMutator(byte[] upperBound, byte[] lowerBound) {
+        this.upperBound = upperBound;
+        this.lowerBound = lowerBound;
+    }
+
+    Random random = new Random();
+
     @Override
     public byte[] mutate(byte[] chromosome) {
-        byte boundaryValue = chromosome[chromosome.length - 1];
-        chromosome[chromosome.length - 1] = boundaryValue == 0 ? (byte) 1 : (byte) 0;
-        return chromosome;
+        if (random.nextBoolean()) {
+            return upperBound;
+        } else {
+            return lowerBound;
+        }
     }
 }
