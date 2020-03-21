@@ -11,7 +11,7 @@ public class TournamentSelection extends SelectionMethod {
     }
 
     @Override
-    public List<Individual> select(List<Individual> individuals) {
+    public List<Individual> select(List<Individual> individuals, int newPopulationSize) {
         return null;
     }
 }

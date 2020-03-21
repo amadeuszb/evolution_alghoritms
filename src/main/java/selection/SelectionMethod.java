@@ -14,15 +14,15 @@ public abstract class SelectionMethod {
         this.random = random;
     }
 
-    public abstract List<Individual> select(List<Individual> individuals);
+    public abstract List<Individual> select(List<Individual> individuals, int newPopulationSize);
 
-    protected List<Individual> getNewPopulation(int sizeOfPopulation, LinkedList<RouletteIndividual> probabilityPopulation) {
+    protected List<Individual> getNewPopulation(int newPopulationSize, LinkedList<RouletteIndividual> probabilityPopulation) {
         LinkedList<Individual> newPopulation = new LinkedList<Individual>();
-        for (int i = 0; i < sizeOfPopulation; i++) {
+        for (int i = 0; i < newPopulationSize; i++) {
             double randomNumber = random.nextDouble();
-            for (int j = 0; j < sizeOfPopulation; j++) {
-                if (probabilityPopulation.get(j).getDistribuant() > randomNumber) {
-                    newPopulation.add(probabilityPopulation.get(j).getIndividual());
+            for (RouletteIndividual rouletteIndividual : probabilityPopulation) {
+                if (rouletteIndividual.getDistribuant() > randomNumber) {
+                    newPopulation.add(rouletteIndividual.getIndividual());
                     break;
                 }
             }

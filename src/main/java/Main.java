@@ -10,20 +10,21 @@ import java.util.*;
 
 public class Main {
     private final static int sizeOfPopulation = 500;
-    private final static int amountOfEras = 50;
+    private final static int amountOfEras = 1000;
     private static Function function = new DropwaveFunction();
 
     public static void main(String[] args) {
         SolutionModelBuilder modelBuilder = new SolutionModelBuilder();
         modelBuilder.withCrossoverType(CrossoverType.ThreePoints)
                 .withFunction(function)
-                .withMutationType(MutationType.BOUNDARY)
+                .withMutationType(MutationType.ONE_POINT)
                 .withPopulationSize(sizeOfPopulation)
                 .withSelectionMethod(SelectionMethodType.RouletteMaximum)
                 .withCrossoverProbability(0.9)
                 .withMutationProbability(0.05)
                 .withInversionProbability(0.001)
-                .withRandomSeed(1);
+                .withRandomSeed(1)
+                .withElitesCount(10);
 
         SolutionModel solutionModel = modelBuilder.build();
 

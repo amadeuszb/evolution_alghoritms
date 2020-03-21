@@ -13,9 +13,8 @@ public class RouletteMinimumSelection extends SelectionMethod {
     }
 
     @Override
-    public List<Individual> select(List<Individual> population) {
+    public List<Individual> select(List<Individual> population, int newPopulationSize) {
         double sumOfResults = 0;
-        int sizeOfPopulation = population.size();
         for (Individual individual : population) {
             sumOfResults += getInverseY(individual);
         }
@@ -26,7 +25,7 @@ public class RouletteMinimumSelection extends SelectionMethod {
             probabilityPopulation.add(new RouletteIndividual(x, previousSum));
         }
 
-        return getNewPopulation(sizeOfPopulation, probabilityPopulation);
+        return getNewPopulation(newPopulationSize, probabilityPopulation);
     }
 
     private double getInverseY(Individual individual) {

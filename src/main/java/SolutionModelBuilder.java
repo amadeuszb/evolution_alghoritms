@@ -4,6 +4,7 @@ import crossover.CrossoverMethod;
 import crossover.CrossoverMethodFactory;
 import crossover.CrossoverType;
 import crossover.PopulationCrossover;
+import elite.EliteStrategy;
 import evaluator.Evaluator;
 import function.Function;
 import initializer.Initializer;
@@ -32,6 +33,7 @@ public class SolutionModelBuilder {
     private double inversionProbability;
     private Random random = new Random();
     private ByteSwitcher byteSwitcher = new ByteSwitcher();
+    private int elitesCount;
 
     public SolutionModelBuilder withPopulationSize(int populationSize) {
         this.populationSize = populationSize;
@@ -78,6 +80,11 @@ public class SolutionModelBuilder {
         return this;
     }
 
+    public SolutionModelBuilder withElitesCount(int elitesCount) {
+        this.elitesCount = elitesCount;
+        return this;
+    }
+
     public SolutionModel build() {
         LinkedList<Individual> population = new Initializer(random).getInitialPopulation(populationSize, function.getBeginOfSquare(), function.getEndOfSquare());
         CrossoverMethod crossoverMethod = new CrossoverMethodFactory(random).getCrossoverMethod(crossoverType);
@@ -88,7 +95,8 @@ public class SolutionModelBuilder {
         PopulationMutator populationMutator = new PopulationMutator(converter, mutator, mutationProbability, random);
         Evaluator evaluator = new Evaluator(function);
         InversionOperator inversionOperator = new InversionOperator(random, byteSwitcher);
-        PopulationInverter populationInverter = new PopulationInverter(inversionOperator,converter,random,inversionProbability);
-        return new SolutionModel(population, evaluator, selectionMethod, populationCrossover, populationMutator, populationInverter);
+        PopulationInverter populationInverter = new PopulationInverter(inversionOperator, converter, random, inversionProbability);
+        EliteStrategy eliteStrategy = new EliteStrategy(elitesCount);
+        return new SolutionModel(population, evaluator, selectionMethod, populationCrossover, populationMutator, populationInverter, eliteStrategy);
     }
 }

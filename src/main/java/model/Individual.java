@@ -1,6 +1,6 @@
 package model;
 
-public class Individual {
+public class Individual implements Comparable<Individual> {
 
     private double x1;
     private double x2;
@@ -37,5 +37,10 @@ public class Individual {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    @Override
+    public int compareTo(Individual o) {
+        return Double.compare(o.y, y);
     }
 }

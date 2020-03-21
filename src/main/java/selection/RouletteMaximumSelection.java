@@ -12,9 +12,8 @@ public class RouletteMaximumSelection extends SelectionMethod {
     }
 
     @Override
-    public List<Individual> select(List<Individual> population) {
+    public List<Individual> select(List<Individual> population, int newPopulationSize) {
         double sumOfResults = 0;
-        int sizeOfPopulation = population.size();
         for (Individual individual : population) {
             sumOfResults += individual.getY();
         }
@@ -25,6 +24,6 @@ public class RouletteMaximumSelection extends SelectionMethod {
             probabilityPopulation.add(new RouletteIndividual(x, previousSum));
         }
 
-        return getNewPopulation(sizeOfPopulation, probabilityPopulation);
+        return getNewPopulation(newPopulationSize, probabilityPopulation);
     }
 }
