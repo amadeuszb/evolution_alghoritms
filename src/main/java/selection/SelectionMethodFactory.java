@@ -12,13 +12,13 @@ public class SelectionMethodFactory {
     public SelectionMethod getSelectionMethod(SelectionMethodType methodType) {
         switch (methodType) {
             case Best:
-                return new BestSelection();
+                return new BestSelection(random);
             case RouletteMaximum:
                 return new RouletteMaximumSelection(random);
             case RouletteMinimum:
-                return new RouletteMinimumSelection();
+                return new RouletteMinimumSelection(random);
             case Tournament:
-                return new TournamentSelection();
+                return new TournamentSelection(random);
         }
         throw new IllegalArgumentException();
     }

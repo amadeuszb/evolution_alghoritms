@@ -3,8 +3,13 @@ package selection;
 import model.Individual;
 
 import java.util.List;
+import java.util.Random;
 
-public class TournamentSelection implements SelectionMethod {
+public class TournamentSelection extends SelectionMethod {
+    public TournamentSelection(Random random) {
+        super(random);
+    }
+
     @Override
     public List<Individual> select(List<Individual> individuals) {
         return null;
