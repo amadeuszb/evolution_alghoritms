@@ -1,11 +1,10 @@
 package javaFxApp;
 
-import Solution.SolutionModel;
-import Solution.SolutionModelBuilder;
+import solution.SolutionModel;
+import solution.SolutionModelBuilder;
 import crossover.CrossoverType;
 import function.DropwaveFunction;
 import function.Function;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,13 +17,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mutation.MutationType;
-import selection.SelectionMethod;
 import selection.SelectionMethodType;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 
@@ -53,6 +50,8 @@ public class Controller implements Initializable {
     @FXML
     private TextField selectionParameter;
     @FXML
+    private TextField randomSeed;
+    @FXML
     private Button calculateButton;
 
     /**
@@ -79,7 +78,7 @@ public class Controller implements Initializable {
             Stage stage = new Stage();
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource("../Plot.fxml"));
             Parent root = myLoader.load();
-            myLoader.<PlotController>getController().initStagePlot(stage, buildSolution());
+            myLoader.<PlotController>getController().initStagePlot(stage, buildSolution(), valueOfLabelInt(eras));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setResizable(false);
@@ -102,7 +101,7 @@ public class Controller implements Initializable {
                 .withCrossoverProbability(valueOfLabelDouble(crossoverProbability))
                 .withMutationProbability(valueOfLabelDouble(mutationProbability))
                 .withInversionProbability(valueOfLabelDouble(inversionProbability))
-                .withRandomSeed(1)
+                .withRandomSeed(valueOfLabelInt(randomSeed))
                 .withElitesCount(10);
         return modelBuilder.build();
     }

@@ -1,5 +1,5 @@
-import Solution.SolutionModel;
-import Solution.SolutionModelBuilder;
+import solution.SolutionModel;
+import solution.SolutionModelBuilder;
 import crossover.CrossoverType;
 import evaluator.Evaluator;
 import function.DropwaveFunction;
@@ -31,7 +31,7 @@ public class Main {
         SolutionModel solutionModel = modelBuilder.build();
 
         long startTime = System.nanoTime();
-        List<Individual> population = solutionModel.learn(amountOfEras);
+        List<Individual> population = solutionModel.learn(amountOfEras).getEpochs().get(10); //TODO
         long endTime = System.nanoTime();
 
         Evaluator evaluator = new Evaluator(function);

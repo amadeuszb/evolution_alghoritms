@@ -1,4 +1,4 @@
-package Solution;
+package solution;
 
 import converter.ByteSwitcher;
 import converter.Converter;

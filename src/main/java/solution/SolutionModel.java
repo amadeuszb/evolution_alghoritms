@@ -1,10 +1,11 @@
-package Solution;
+package solution;
 
 import crossover.PopulationCrossover;
 import elite.EliteStrategy;
 import evaluator.Evaluator;
 import inversion.PopulationInverter;
 import model.Individual;
+import model.SolutionScore;
 import mutation.PopulationMutator;
 import selection.SelectionMethod;
 
@@ -32,7 +33,9 @@ public class SolutionModel {
         this.eliteStrategy = eliteStrategy;
     }
 
-    public List<Individual> learn(int epochs) {
+    public SolutionScore learn(int epochs) {
+        SolutionScore solutionScore = new SolutionScore();
+        long startTime = System.nanoTime();
         for (int i = 0; i < epochs; i++) {
             population = evaluator.evaluation(population);
             List<Individual> elites = eliteStrategy.getElites(population);
@@ -40,7 +43,11 @@ public class SolutionModel {
             population = populationCrossover.crossover(elites);
             population = populationMutator.mutatePopulation(population);
             population = populationInverter.invertPopulation(population);
+            solutionScore.getEpochs().add(population);
         }
-        return population;
+        long endTime = System.nanoTime();
+        long durationMs = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
+        solutionScore.setTimeOfExecutionInMs(durationMs);
+        return solutionScore;
     }
 }

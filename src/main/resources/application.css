@@ -1,0 +1,482 @@
+.root{
+    -fx-background-color: linear-gradient(to right top, rgb(17, 28, 81), rgb(38, 54, 124));
+}
+
+.title-label{
+    -fx-background-color: linear-gradient(to right, rgba(110, 144, 214, 0.6), rgba(50, 64, 170, 0.3));
+    -fx-background-image: url("logo.png");
+    -fx-background-size: 190px 170px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 1% 50%;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.buttonsBox{
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
+
+
+
+/*
+    Buttons
+*/
+.button:disabled {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%,#283980,#1c2759);
+    -fx-opacity: 0.5 ;
+}
+.button{
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%,#283980,#1c2759);
+    -fx-min-height: 100px;
+    -fx-min-width: 190px;
+
+    -fx-background-size: 65px 65px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50% 30%;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+
+    -fx-padding: 60 1 1 1;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-text-fill: rgb(255, 255, 255);
+}
+.button:hover{
+    -fx-background-size: 75px 75px;
+    -fx-font-size: 18px;
+}
+.button:pressed{
+    -fx-background-size: 65px 65px;
+    -fx-font-size: 15px;
+    -fx-background-insets: 2 0 0 0, 2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+.addButton{
+    -fx-background-image: url("add-group_white.png");
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#004000 0%,#006600 100%),
+            #004c00,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%,#283980,#1c2759);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+}
+.addButton:hover{
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #004000 0%, #006600 100%),
+    #004c00,
+    #212F71,
+    radial-gradient(center 50% 50%, radius 100%, #344aa7, #1c2759);
+}
+
+.deleteButton{
+    -fx-background-image: url("delete-group_white.png");
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#7f0000 0%,#cc0000 100%),
+            #cc0000,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%,#283980,#1c2759);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+}
+.deleteButton:hover{
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#7f0000 0%,#cc0000 100%),
+            #cc0000,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%, #344aa7, #1c2759);
+}
+
+.statisticButton{
+    -fx-background-image: url("statistics_white.png");
+
+    -fx-background-position: 50% 10%;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#7f7f00 0%,#e5e500 100%),
+            #b2b200,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%,#283980,#1c2759);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+
+}
+.statisticButton:hover{
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%,#7f7f00 0%,#e5e500 100%),
+    #b2b200,
+    #212F71,
+    radial-gradient(center 50% 50%, radius 100%, #344aa7, #1c2759);
+}
+
+.sessionButton{
+    -fx-background-image: url("session_white.png");
+    -fx-background-position: 50% 10%;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#4c004c 0%,#800080 100%),
+            #660066,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%,#283980,#1c2759);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+}
+.sessionButton:hover{
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%,#4c004c 0%,#800080 100%),
+    #660066,
+    #212F71,
+    radial-gradient(center 50% 50%, radius 100%, #344aa7, #1c2759);
+}
+
+
+.addSessionButton{
+    -fx-background-image: url("add-session_white.png");
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#004000 0%,#006600 100%),
+            #004c00,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%,#283980,#1c2759);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+}
+.addSessionButton:hover{
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #004000 0%, #006600 100%),
+    #004c00,
+    #212F71,
+    radial-gradient(center 50% 50%, radius 100%, #344aa7, #1c2759);
+}
+
+.deleteSessionButton{
+    -fx-background-image: url("delete-session_white.png");
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#7f0000 0%,#cc0000 100%),
+            #cc0000,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%,#283980,#1c2759);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+}
+.deleteSessionButton:hover{
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#7f0000 0%,#cc0000 100%),
+            #cc0000,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%, #344aa7, #1c2759);
+}
+
+.backButton{
+    -fx-background-image: url("back_white.png");
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#7f7f00 0%,#e5e500 100%),
+            #b2b200,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%,#283980,#1c2759);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+}
+.backButton:hover{
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#7f7f00 0%,#e5e500 100%),
+            #b2b200,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%, #344aa7, #1c2759);
+}
+
+.beginButton{
+    -fx-background-image: url("begin_white.png");
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#4c004c 0%,#800080 100%),
+            #660066,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%,#283980,#1c2759);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+}
+.beginButton:hover{
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#4c004c 0%,#800080 100%),
+            #660066,
+            #212F71,
+            radial-gradient(center 50% 50%, radius 100%, #344aa7, #1c2759);
+}
+
+
+.groupLabel{
+    -fx-background-color: rgba(255, 255, 255, 0);
+    -fx-font-size: 20px;
+    -fx-text-fill: rgb(255, 255, 255);
+}
+
+
+
+.sessionLabels{
+    -fx-text-fill: rgba(145, 145, 145, 0.75);
+    -fx-font-weight: bold;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: white;
+}
+.sessionFields{
+    -fx-background-color: rgba(255, 255, 255, 0);
+    -fx-text-fill: rgba(225, 225, 225, 0.8);
+    -fx-font-size: 18px;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: white;
+}
+
+
+
+
+
+
+/*
+    TableView
+*/
+
+.search_field{
+    -fx-text-fill: rgba(255,255,255,0.75);
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-padding: 5px;
+    -fx-font-size: 12px;
+}
+.search_field:hover{
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+.search_field:pressed{
+    -fx-background-color:  rgba(141, 148, 181, 0.5);
+}
+
+
+
+.table-view .column-header .label{
+    -fx-text-fill: rgba(255,255,255,1);
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.group_table{
+    -fx-background-color: transparent;
+}
+
+
+.group_table .column-header,
+.group_table .column-header-background .filler {
+    -fx-background-color:  linear-gradient(to left, rgba(145, 145, 145, 0.75), rgba(128, 240, 204, 1));
+}
+
+
+
+.group_table .cell{
+    -fx-background-color: transparent;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-size: 16px;
+    -fx-border-width: 0 0 1 0;
+
+    -fx-border-color: linear-gradient(to left, rgba(145, 145, 145, 0.4), rgba(128, 240, 204, 0.6));
+}
+.group_table .cell:hover{
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-font-size: 17.5px;
+}
+.group_table .cell:pressed{
+    -fx-font-size: 15px;
+}
+.group_table .cell:selected{
+    -fx-background-color: rgba(110, 144, 214, 0.6);
+
+}
+
+
+
+.group_table .scroll-bar:vertical .thumb {
+    -fx-background-color:derive(rgb(17, 28, 81), 90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+
+.description{
+    -fx-background-color: linear-gradient(to right, rgb(32, 47, 113), rgb(33, 45, 110));
+    -fx-text-background-color: rgba(255,255,255,0.5);
+    -fx-padding: 5px;
+    -fx-font-size: 12px;
+}
+
+
+/*
+    Add group form
+*/
+
+.addGroupPane{
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-effect: dropshadow( three-pass-box , rgba(255, 255, 255,1) , 10, 0 , 0 , 1 );
+}
+
+.codeField{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 2, 0 , 0 , 1 );
+}
+
+.descriptionArea{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0 , 0 , 1 );
+}
+
+.saveButton{
+    -fx-min-height: 50px;
+    -fx-min-width: 250px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0 , 0 , 1 );
+
+    -fx-padding: 1 1 1 1;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-text-fill: rgb(255, 255, 255);
+}
+.saveButton:hover{
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #344aa7, #1c2759);
+}
+
+.cancelButton{
+    -fx-min-height: 50px;
+    -fx-min-width: 250px;
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0 , 0 , 1 );
+
+    -fx-padding: 1 1 1 1;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+
+    -fx-text-fill: radial-gradient(center 50% 50%, radius 100%,#283980,#1c2759);
+    -fx-background-color: #283980, white;
+    -fx-background-insets: 0,1,4,5;
+    -fx-background-radius: 9,8,5,4;
+}
+
+
+
+
+/*
+    Sesssion
+*/
+.upperAnchor{
+    -fx-background-color:rgba(86,94,135,0.4);
+}
+.downAnchor{
+    -fx-background-color:rgba(60,65,94, 0.4);
+}
+
+
+
+.previousButton{
+    -fx-min-height: 80px;
+    -fx-min-width: 80px;
+    -fx-background-radius: 100;
+    -fx-background-color: transparent;
+
+    -fx-border-radius: 100;
+    -fx-border-color: white;
+
+    -fx-font-size: 15;
+
+    -fx-padding: 1 1 1 1;
+}
+.previousButton:hover{
+    -fx-font-size: 17;
+    -fx-background-color:rgba(86,94,135,0.4);
+}
+
+
+
+.startButton{
+    -fx-min-height: 165px;
+    -fx-min-width: 165px;
+    -fx-background-radius: 100;
+    -fx-background-color: transparent;
+
+    -fx-border-radius: 100;
+    -fx-border-color: white;
+
+    -fx-font-size: 30;
+
+    -fx-padding: 1 1 1 1;
+}
+.startButton:hover{
+    -fx-font-size: 35;
+    -fx-background-color:rgba(86,94,135,0.4);
+}
+
+
+
+.resetButton{
+    -fx-min-height: 80px;
+    -fx-min-width: 80px;
+    -fx-background-radius: 100;
+    -fx-background-color: transparent;
+
+    -fx-border-radius: 100;
+    -fx-border-color: white;
+
+    -fx-font-size: 15;
+
+    -fx-padding: 1 1 1 1;
+}
+.resetButton:hover{
+    -fx-font-size: 17;
+    -fx-background-color:rgba(86,94,135,0.4);
+}
+
+
+
+.sessionName{
+    -fx-padding: 1 1 1 1;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-text-fill: rgb(255, 255, 255);
+}
+
+
+
+.timeLabel{
+    -fx-padding: 1 1 1 1;
+    -fx-font-weight: bold;
+    -fx-font-size: 150px;
+    -fx-text-fill: rgb(255, 255, 255);
+}
+
+
+
+.exerciseName{
+    -fx-background-color: transparent;
+    -fx-padding: 1 1 1 1;
+    -fx-font-size: 20px;
+    -fx-text-fill: rgb(255, 255, 255);
+}
+
+
+
+.exercise{
+    -fx-background-color: transparent;
+    -fx-padding: 1 1 1 1;
+    -fx-font-size: 20px;
+    -fx-text-fill: rgb(255, 255, 255);
+}
+.exercise:hover{
+    -fx-font-size: 25px;
+}
+
+
+
+.progress-bar > .bar {
+    -fx-background-color: linear-gradient(to right, rgb(126, 159, 223), rgb(231, 80, 83));
+}
+
+
+.chart{
+    -fx-backround-color: transparent;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: rgba(145, 145, 145, 0.75);
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: rgba(145, 145, 145, 0.75);
+}
+
+
+.chart-legend {
+    -fx-background-color:  transparent;
+
+}
+
+.chart-legend-item{
+    -fx-text-fill: rgb(255, 255, 255);
+}

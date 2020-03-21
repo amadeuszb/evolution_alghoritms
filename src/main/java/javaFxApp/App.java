@@ -1,7 +1,5 @@
 package javaFxApp;
 
-import Solution.SolutionModelBuilder;
-import crossover.CrossoverType;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +9,7 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception{
+    public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../sample.fxml"));
         Parent root = loader.load();
         Controller mainController = loader.<Controller>getController();
