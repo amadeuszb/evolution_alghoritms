@@ -4,7 +4,11 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class OnePointCrossover implements CrossoverMethod {
-    private Random random = new Random();
+    private final Random random;
+
+    public OnePointCrossover(Random random) {
+        this.random = random;
+    }
 
     @Override
     public byte[][] crossover(byte[] individualOne, byte[] individualTwo) {

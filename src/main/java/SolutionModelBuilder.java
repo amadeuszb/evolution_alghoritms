@@ -16,6 +16,7 @@ import selection.SelectionMethodFactory;
 import selection.SelectionMethodType;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class SolutionModelBuilder {
     private int populationSize;
@@ -25,6 +26,7 @@ public class SolutionModelBuilder {
     private MutationType mutationType;
     private double mutationProbability;
     private double crossoverProbability;
+    private Random random = new Random();
 
     public SolutionModelBuilder withPopulationSize(int populationSize) {
         this.populationSize = populationSize;
@@ -61,14 +63,19 @@ public class SolutionModelBuilder {
         return this;
     }
 
+    public SolutionModelBuilder withRandomSeed(long seed) {
+        random.setSeed(seed);
+        return this;
+    }
+
     public SolutionModel build() {
-        LinkedList<Individual> population = new Initializer().getInitialPopulation(populationSize, function.getBeginOfSquare(), function.getEndOfSquare());
-        CrossoverMethod crossoverMethod = new CrossoverMethodFactory().getCrossoverMethod(crossoverType);
-        SelectionMethod selectionMethod = new SelectionMethodFactory().getSelectionMethod(selectionMethodType);
+        LinkedList<Individual> population = new Initializer(random).getInitialPopulation(populationSize, function.getBeginOfSquare(), function.getEndOfSquare());
+        CrossoverMethod crossoverMethod = new CrossoverMethodFactory(random).getCrossoverMethod(crossoverType);
+        SelectionMethod selectionMethod = new SelectionMethodFactory(random).getSelectionMethod(selectionMethodType);
         Converter converter = new Converter(function);
-        Mutator mutator = new MutatorFactory(function, converter).getMutator(mutationType);
-        PopulationCrossover populationCrossover = new PopulationCrossover(converter, crossoverMethod, crossoverProbability);
-        PopulationMutator populationMutator = new PopulationMutator(converter, mutator, mutationProbability);
+        Mutator mutator = new MutatorFactory(function, converter, random).getMutator(mutationType);
+        PopulationCrossover populationCrossover = new PopulationCrossover(converter, crossoverMethod, crossoverProbability, random);
+        PopulationMutator populationMutator = new PopulationMutator(converter, mutator, mutationProbability, random);
         Evaluator evaluator = new Evaluator(function);
         return new SolutionModel(population, evaluator, selectionMethod, populationCrossover, populationMutator);
     }

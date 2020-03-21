@@ -11,12 +11,13 @@ public class PopulationMutator {
     private final Converter converter;
     private final Mutator mutator;
     private final double mutationProbability;
-    private final Random random = new Random();
+    private final Random random;
 
-    public PopulationMutator(Converter converter, Mutator mutator, double mutationProbability) {
+    public PopulationMutator(Converter converter, Mutator mutator, double mutationProbability, Random random) {
         this.converter = converter;
         this.mutator = mutator;
         this.mutationProbability = mutationProbability;
+        this.random = random;
     }
 
     public List<Individual> mutatePopulation(List<Individual> population) {

@@ -21,7 +21,8 @@ public class Main {
                 .withPopulationSize(sizeOfPopulation)
                 .withSelectionMethod(SelectionMethodType.RouletteMaximum)
                 .withCrossoverProbability(0.9)
-                .withMutationProbability(0.05);
+                .withMutationProbability(0.05)
+                .withRandomSeed(2);
 
         SolutionModel solutionModel = modelBuilder.build();
 

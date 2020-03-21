@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.Random;
 
 public class PopulationCrossover {
-
-    Random random = new Random();
-    Converter converter;
+    private final Converter converter;
     private final CrossoverMethod crossoverMethod;
     private final double crossoverProbability;
+    private final Random random;
 
-    public PopulationCrossover(Converter converter, CrossoverMethod crossoverMethod, double crossoverProbability) {
+    public PopulationCrossover(Converter converter, CrossoverMethod crossoverMethod, double crossoverProbability, Random random) {
         this.converter = converter;
         this.crossoverMethod = crossoverMethod;
         this.crossoverProbability = crossoverProbability;
+        this.random = random;
     }
 
     public List<Individual> crossover(List<Individual> population) {

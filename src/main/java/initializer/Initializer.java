@@ -6,8 +6,11 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Initializer {
+    private final Random random;
 
-    private Random random = new Random();
+    public Initializer(Random random) {
+        this.random = random;
+    }
 
     public LinkedList<Individual> getInitialPopulation(int sizeOfPopulation, double beginOfSquare, double endOfSquare) {
         LinkedList<Individual> population = new LinkedList<Individual>();

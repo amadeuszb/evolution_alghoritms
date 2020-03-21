@@ -6,7 +6,11 @@ import model.RouletteIndividual;
 import java.util.*;
 
 public class RouletteMaximumSelection implements SelectionMethod {
-    Random random = new Random();
+    private final Random random;
+
+    public RouletteMaximumSelection(Random random){
+        this.random = random;
+    }
 
     @Override
     public List<Individual> select(List<Individual> population) {
