@@ -94,7 +94,7 @@ public class SolutionModelBuilder {
         PopulationCrossover populationCrossover = new PopulationCrossover(converter, crossoverMethod, crossoverProbability, random);
         PopulationMutator populationMutator = new PopulationMutator(converter, mutator, mutationProbability, random);
         Evaluator evaluator = new Evaluator(function);
-        InversionOperator inversionOperator = new InversionOperator(random, byteSwitcher);
+        InversionOperator inversionOperator = new InversionOperator(random);
         PopulationInverter populationInverter = new PopulationInverter(inversionOperator, converter, random, inversionProbability);
         EliteStrategy eliteStrategy = new EliteStrategy(elitesCount);
         return new SolutionModel(population, evaluator, selectionMethod, populationCrossover, populationMutator, populationInverter, eliteStrategy);
