@@ -14,9 +14,9 @@ public class CrossoverMethodFactory {
             case OnePoint:
                 return new OnePointCrossover(random);
             case TwoPoints:
-                return new TwoPointCrossover();
+                return new TwoPointCrossover(random);
             case ThreePoints:
-                return new ThreePointCrossover();
+                return new ThreePointCrossover(random);
             case Homogeneous:
                 return new HomogeneousCrossover();
         }

@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         SolutionModelBuilder modelBuilder = new SolutionModelBuilder();
-        modelBuilder.withCrossoverType(CrossoverType.OnePoint)
+        modelBuilder.withCrossoverType(CrossoverType.ThreePoints)
                 .withFunction(function)
                 .withMutationType(MutationType.BOUNDARY)
                 .withPopulationSize(sizeOfPopulation)
