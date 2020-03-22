@@ -16,7 +16,7 @@ public class BestSelection extends SelectionMethod {
 
     @Override
     public List<Individual> select(List<EvaluatedIndividual> individuals, int newPopulationSize) {
-        int amountOfBests = (int) (individuals.size() / percentageOfBest);
+        int amountOfBests = (int) (individuals.size() * percentageOfBest);
         Collections.sort(individuals);
         ArrayList<Individual> elites = new ArrayList<>();
         for (int i = 0; i < newPopulationSize; i++) {
