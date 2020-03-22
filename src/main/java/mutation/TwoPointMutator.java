@@ -17,9 +17,7 @@ public class TwoPointMutator implements Mutator {
     @Override
     public byte[] mutate(byte[] chromosome) {
         int firstMutatedByteIndex = random.nextInt(chromosome.length);
-        int secondMutatedByteIndex;
-        while ((secondMutatedByteIndex = random.nextInt(chromosome.length)) == firstMutatedByteIndex) {
-        }
+        int secondMutatedByteIndex = random.nextInt(chromosome.length);
         chromosome = byteSwitcher.switchByte(chromosome, firstMutatedByteIndex);
         chromosome = byteSwitcher.switchByte(chromosome, secondMutatedByteIndex);
         return chromosome;
