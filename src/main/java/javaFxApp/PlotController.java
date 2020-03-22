@@ -1,6 +1,7 @@
 package javaFxApp;
 
 import javafx.scene.chart.XYChart;
+import model.EvaluatedIndividual;
 import model.Individual;
 import model.SolutionScore;
 import solution.SolutionModel;
@@ -33,7 +34,7 @@ public class PlotController {
     private Stage primaryStage;
 
     public void initStagePlot(Stage stage, SolutionModel solutionModel, int amountOfEras) {
-        numberOfSessionsField.setTextFormatter(new TextFormatter<Number>(new NumberStringConverter()));
+        numberOfSessionsField.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         primaryStage = stage;
         prevScene = stage.getScene();
         myOwnStage = stage;
@@ -48,26 +49,26 @@ public class PlotController {
         XYChart.Series<String, Double> seriesOfScores = new XYChart.Series<>();
         seriesOfScores.setName("Score");
         long actual = 0;
-        for(Double medium: getMediumScore(solutionScore)){
+        for (Double mean : getMeanScore(solutionScore)) {
             actual++;
-            seriesOfScores.getData().add(new XYChart.Data<String, Double>(String.valueOf(actual), medium));
+            seriesOfScores.getData().add(new XYChart.Data<>(String.valueOf(actual), mean));
         }
         chart.getData().clear();
         chart.getData().add(seriesOfScores);
     }
 
-    private LinkedList<Double> getMediumScore(SolutionScore solutionScore){ //TODO: Move to solution score
-        LinkedList<Double> mediumScores = new LinkedList<>();
-        for(List<Individual> individuals: solutionScore.getEpochs()){
+    private LinkedList<Double> getMeanScore(SolutionScore solutionScore) { //TODO: Move to solution score
+        LinkedList<Double> meanScores = new LinkedList<>();
+        for (List<EvaluatedIndividual> individuals : solutionScore.getEpochs()) {
             double sumOfScores = 0;
             int counter = 0;
-            for (Individual individual: individuals){
-                sumOfScores+=individual.getY();
+            for (EvaluatedIndividual individual : individuals) {
+                sumOfScores += individual.getScore();
                 counter++;
             }
-            mediumScores.add(sumOfScores/counter);
+            meanScores.add(sumOfScores / counter);
         }
-        return mediumScores;
+        return meanScores;
     }
 
     public void handleOnButtonBack(ActionEvent actionEvent) {

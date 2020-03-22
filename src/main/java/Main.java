@@ -1,7 +1,9 @@
+import evaluator.Evaluator;
+import model.EvaluatedIndividual;
+import model.SolutionScore;
 import solution.SolutionModel;
 import solution.SolutionModelBuilder;
 import crossover.CrossoverType;
-import evaluator.Evaluator;
 import function.DropwaveFunction;
 import function.Function;
 import model.Individual;
@@ -17,29 +19,26 @@ public class Main {
 
     public static void main(String[] args) {
         SolutionModelBuilder modelBuilder = new SolutionModelBuilder();
-        modelBuilder.withCrossoverType(CrossoverType.ThreePoints)
+        modelBuilder.withCrossoverType(CrossoverType.OnePoint)
                 .withFunction(function)
                 .withMutationType(MutationType.ONE_POINT)
                 .withPopulationSize(sizeOfPopulation)
                 .withSelectionMethod(SelectionMethodType.Tournament)
-                .withCrossoverProbability(0.9)
+                .withCrossoverProbability(0.8)
                 .withMutationProbability(0.05)
-                .withInversionProbability(0.01)
+                .withInversionProbability(0.001)
                 .withRandomSeed(1)
                 .withElitesCount(10);
 
         SolutionModel solutionModel = modelBuilder.build();
 
-        long startTime = System.nanoTime();
-        List<Individual> population = solutionModel.learn(amountOfEras).getEpochs().get(10); //TODO
-        long endTime = System.nanoTime();
-
-        Evaluator evaluator = new Evaluator(function);
-        for (Individual i : evaluator.evaluation(population)) {
-            System.out.println("X1: " + i.getX1() + " X2: " + i.getX2() + " Y: " + i.getY());
+        SolutionScore score = solutionModel.learn(amountOfEras);
+        List<List<EvaluatedIndividual>> epochs = score.getEpochs();
+        List<EvaluatedIndividual> lastEpoch = epochs.get(epochs.size() - 1);
+        for (EvaluatedIndividual i : lastEpoch) {
+            System.out.println("X1: " + i.getIndividual().getX1() + " X2: " + i.getIndividual().getX2() + " Y: " + i.getScore());
         }
-        long durationMs = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
-        System.out.println("Czas wykonania: " + durationMs + "ms");
+        System.out.println("Czas wykonania: " + score.getTimeOfExecution() + "ms");
     }
 
 }

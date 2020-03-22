@@ -1,5 +1,6 @@
 package selection;
 
+import model.EvaluatedIndividual;
 import model.Individual;
 
 import java.util.*;
@@ -16,7 +17,7 @@ public class TournamentSelection extends SelectionMethod {
     }
 
     @Override
-    public List<Individual> select(List<Individual> individuals, int newPopulationSize) {
+    public List<Individual> select(List<EvaluatedIndividual> individuals, int newPopulationSize) {
         ArrayList<Individual> winners = new ArrayList<>();
         for (int i = 0; i < newPopulationSize; i++) {
             winners.add(makeDeterministicTournament(individuals));
@@ -24,7 +25,7 @@ public class TournamentSelection extends SelectionMethod {
         return winners;
     }
 
-    private Individual makeDeterministicTournament(List<Individual> individuals) {
+    private Individual makeDeterministicTournament(List<EvaluatedIndividual> individuals) {
         HashSet<Integer> chosenContestants = new HashSet<>();
         while (chosenContestants.size() < tournamentSize) {
             chosenContestants.add(random.nextInt(individuals.size()));
@@ -32,9 +33,9 @@ public class TournamentSelection extends SelectionMethod {
         double maxY = Double.MIN_VALUE;
         Individual winner = null;
         for (int i : chosenContestants) {
-            if (individuals.get(i).getY() > maxY) {
-                winner = individuals.get(i);
-                maxY = winner.getY();
+            if (individuals.get(i).getScore() > maxY) {
+                winner = individuals.get(i).getIndividual();
+                maxY = individuals.get(i).getScore();
             }
         }
         return winner;

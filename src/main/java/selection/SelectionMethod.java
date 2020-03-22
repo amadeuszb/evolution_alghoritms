@@ -1,5 +1,6 @@
 package selection;
 
+import model.EvaluatedIndividual;
 import model.Individual;
 import model.RouletteIndividual;
 
@@ -14,7 +15,7 @@ public abstract class SelectionMethod {
         this.random = random;
     }
 
-    public abstract List<Individual> select(List<Individual> individuals, int newPopulationSize);
+    public abstract List<Individual> select(List<EvaluatedIndividual> individuals, int newPopulationSize);
 
     protected List<Individual> getNewPopulation(int newPopulationSize, List<RouletteIndividual> probabilityPopulation) {
         ArrayList<Individual> newPopulation = new ArrayList<>();

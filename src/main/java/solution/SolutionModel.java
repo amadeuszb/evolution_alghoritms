@@ -4,6 +4,7 @@ import crossover.PopulationCrossover;
 import elite.EliteStrategy;
 import evaluator.Evaluator;
 import inversion.PopulationInverter;
+import model.EvaluatedIndividual;
 import model.Individual;
 import model.SolutionScore;
 import mutation.PopulationMutator;
@@ -34,15 +35,19 @@ public class SolutionModel {
 
     public SolutionScore learn(int epochs) {
         SolutionScore solutionScore = new SolutionScore();
+        List<EvaluatedIndividual> evaluatedPopulation;
+        evaluatedPopulation = evaluator.evaluation(population);
+
+        solutionScore.getEpochs().add(evaluatedPopulation);
         long startTime = System.nanoTime();
         for (int i = 0; i < epochs; i++) {
-            population = evaluator.evaluation(population);
-            List<Individual> elites = eliteStrategy.getElites(population);
-            elites.addAll(selectionMethod.select(population, population.size() - elites.size()));
+            List<Individual> elites = eliteStrategy.getElites(evaluatedPopulation);
+            elites.addAll(selectionMethod.select(evaluatedPopulation, evaluatedPopulation.size() - elites.size()));
             population = populationCrossover.crossover(elites);
             population = populationMutator.mutatePopulation(population);
             population = populationInverter.invertPopulation(population);
-            solutionScore.getEpochs().add(population);
+            evaluatedPopulation = evaluator.evaluation(population);
+            solutionScore.getEpochs().add(evaluatedPopulation);
         }
         long endTime = System.nanoTime();
         long durationMs = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.

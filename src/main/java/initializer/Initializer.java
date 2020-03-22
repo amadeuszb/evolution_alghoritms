@@ -16,12 +16,9 @@ public class Initializer {
     public List<Individual> getInitialPopulation(int sizeOfPopulation, double beginOfSquare, double endOfSquare) {
         ArrayList<Individual> population = new ArrayList<>(sizeOfPopulation);
         for (int i = 0; i < sizeOfPopulation; i++) {
-            Individual individual = new Individual();
             double x1 = beginOfSquare + (endOfSquare - beginOfSquare) * random.nextDouble();
             double x2 = beginOfSquare + (endOfSquare - beginOfSquare) * random.nextDouble();
-            individual.setX1(x1);
-            individual.setX2(x2);
-            population.add(individual);
+            population.add(new Individual(x1, x2));
         }
         return population;
     }

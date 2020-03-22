@@ -2,7 +2,7 @@ package selection;
 
 public enum SelectionMethodType {
     Best,
-    RouletteMaximum,
+    Roulette,
     RouletteMinimum,
     Tournament
 }

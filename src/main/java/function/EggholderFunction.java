@@ -6,8 +6,16 @@ public class EggholderFunction implements Function {
     private double endOfSquare = 512;
 
     @Override
-    public double fun(double x, double y) {
-        return -(y + 47) * Math.sin(Math.sqrt(Math.abs((x / 2) + (y + 47)))) - x * Math.sin(Math.sqrt(Math.abs(x - (y + 47))));
+    public double fun(double x1, double x2) {
+        return -(x2 + 47) * Math.sin(Math.sqrt(Math.abs((x1 / 2) + (x2 + 47)))) - x1 * Math.sin(Math.sqrt(Math.abs(x1 - (x2 + 47))));
+    }
+
+    @Override
+    public double evaluate(double x1, double x2) {
+        double val = (fun(x1, x2) + 959.6407);
+        if (val == 0)
+            return Double.MAX_VALUE;
+        return 1 / val;
     }
 
     @Override

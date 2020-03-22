@@ -11,7 +11,7 @@ public class SolutionScore {
 
     private long timeOfExecution;
 
-    private List<List<Individual>> epochs;
+    private List<List<EvaluatedIndividual>> epochs;
 
     public long getTimeOfExecution() {
         return timeOfExecution;
@@ -21,11 +21,11 @@ public class SolutionScore {
         this.timeOfExecution = timeOfExecution;
     }
 
-    public List<List<Individual>> getEpochs() {
+    public List<List<EvaluatedIndividual>> getEpochs() {
         return epochs;
     }
 
-    public void setEpochs(List<List<Individual>> epochs) {
+    public void setEpochs(List<List<EvaluatedIndividual>> epochs) {
         this.epochs = epochs;
     }
 

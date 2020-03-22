@@ -13,10 +13,8 @@ public class SelectionMethodFactory {
         switch (methodType) {
             case Best:
                 return new BestSelection(random, 30); //TODO
-            case RouletteMaximum:
-                return new RouletteMaximumSelection(random);
-            case RouletteMinimum:
-                return new RouletteMinimumSelection(random);
+            case Roulette:
+                return new RouletteSelection(random);
             case Tournament:
                 return new TournamentSelection(random, 5);
         }
