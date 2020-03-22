@@ -18,8 +18,8 @@ public class BestSelection extends SelectionMethod {
         int amountOfBests = (int) (individuals.size() / percentageOfBest);
         Collections.sort(individuals);
         ArrayList<Individual> elites = new ArrayList<>();
-        for (int i = 0; i < amountOfBests; i++) {
-            elites.add(individuals.get(i));
+        for (int i = 0; i < newPopulationSize; i++) {
+            elites.add(individuals.get(i % amountOfBests));
         }
         return elites;
     }
