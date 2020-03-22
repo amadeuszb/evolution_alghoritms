@@ -21,7 +21,7 @@ import selection.SelectionMethod;
 import selection.SelectionMethodFactory;
 import selection.SelectionMethodType;
 
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class SolutionModelBuilder {
@@ -88,7 +88,7 @@ public class SolutionModelBuilder {
     }
 
     public SolutionModel build() {
-        LinkedList<Individual> population = new Initializer(random).getInitialPopulation(populationSize, function.getBeginOfSquare(), function.getEndOfSquare());
+        List<Individual> population = new Initializer(random).getInitialPopulation(populationSize, function.getBeginOfSquare(), function.getEndOfSquare());
         CrossoverMethod crossoverMethod = new CrossoverMethodFactory(random).getCrossoverMethod(crossoverType);
         SelectionMethod selectionMethod = new SelectionMethodFactory(random).getSelectionMethod(selectionMethodType);
         Converter converter = new Converter(function);

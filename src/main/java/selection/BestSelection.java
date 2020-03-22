@@ -2,10 +2,7 @@ package selection;
 
 import model.Individual;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class BestSelection extends SelectionMethod {
 
@@ -20,7 +17,7 @@ public class BestSelection extends SelectionMethod {
     public List<Individual> select(List<Individual> individuals, int newPopulationSize) {
         int amountOfBests = (int) (individuals.size() / percentageOfBest);
         Collections.sort(individuals);
-        LinkedList<Individual> elites = new LinkedList<>();
+        ArrayList<Individual> elites = new ArrayList<>();
         for (int i = 0; i < amountOfBests; i++) {
             elites.add(individuals.get(i));
         }

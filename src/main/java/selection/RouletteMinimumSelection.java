@@ -3,7 +3,7 @@ package selection;
 import model.Individual;
 import model.RouletteIndividual;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -18,7 +18,7 @@ public class RouletteMinimumSelection extends SelectionMethod {
         for (Individual individual : population) {
             sumOfResults += getInverseY(individual);
         }
-        LinkedList<RouletteIndividual> probabilityPopulation = new LinkedList<RouletteIndividual>();
+        ArrayList<RouletteIndividual> probabilityPopulation = new ArrayList<>();
         double previousSum = 0;
         for (Individual x : population) {
             previousSum += getInverseY(x) / sumOfResults;

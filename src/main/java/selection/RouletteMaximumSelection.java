@@ -17,7 +17,7 @@ public class RouletteMaximumSelection extends SelectionMethod {
         for (Individual individual : population) {
             sumOfResults += individual.getY();
         }
-        LinkedList<RouletteIndividual> probabilityPopulation = new LinkedList<RouletteIndividual>();
+        ArrayList<RouletteIndividual> probabilityPopulation = new ArrayList<>();
         double previousSum = 0;
         for (Individual x : population) {
             previousSum += x.getY() / sumOfResults;

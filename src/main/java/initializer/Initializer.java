@@ -2,7 +2,8 @@ package initializer;
 
 import model.Individual;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Initializer {
@@ -12,8 +13,8 @@ public class Initializer {
         this.random = random;
     }
 
-    public LinkedList<Individual> getInitialPopulation(int sizeOfPopulation, double beginOfSquare, double endOfSquare) {
-        LinkedList<Individual> population = new LinkedList<Individual>();
+    public List<Individual> getInitialPopulation(int sizeOfPopulation, double beginOfSquare, double endOfSquare) {
+        ArrayList<Individual> population = new ArrayList<>(sizeOfPopulation);
         for (int i = 0; i < sizeOfPopulation; i++) {
             Individual individual = new Individual();
             double x1 = beginOfSquare + (endOfSquare - beginOfSquare) * random.nextDouble();

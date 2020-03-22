@@ -22,6 +22,4 @@ public class TwoPointMutator implements Mutator {
         chromosome = byteSwitcher.switchByte(chromosome, secondMutatedByteIndex);
         return chromosome;
     }
-
-
 }

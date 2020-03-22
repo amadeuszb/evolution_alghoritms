@@ -9,7 +9,6 @@ import model.SolutionScore;
 import mutation.PopulationMutator;
 import selection.SelectionMethod;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class SolutionModel {
@@ -21,7 +20,7 @@ public class SolutionModel {
     private final PopulationInverter populationInverter;
     private final EliteStrategy eliteStrategy;
 
-    public SolutionModel(LinkedList<Individual> population, Evaluator evaluator, SelectionMethod selectionMethod,
+    public SolutionModel(List<Individual> population, Evaluator evaluator, SelectionMethod selectionMethod,
                          PopulationCrossover populationCrossover, PopulationMutator populationMutator,
                          PopulationInverter populationInverter, EliteStrategy eliteStrategy) {
         this.population = population;
