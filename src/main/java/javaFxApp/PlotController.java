@@ -1,7 +1,6 @@
 package javaFxApp;
 
 import javafx.scene.chart.XYChart;
-import model.EvaluatedIndividual;
 import model.Individual;
 import model.SolutionScore;
 import solution.SolutionModel;
@@ -41,15 +40,14 @@ public class PlotController {
         this.solutionModel = solutionModel;
         solutionScore = solutionModel.learn(amountOfEras);
         groupNameLabel.setText("Time Of Calculations: " + solutionScore.getTimeOfExecution() + "ms");
-        setChartData();
+        setChartData(solutionScore.mediumScoresOfEpochs());
     }
 
-    public void setChartData() {
-        int eras = solutionScore.getEpochs().get(0).size(); //TODO: mocked
+    public void setChartData(LinkedList<Double> scores) {
         XYChart.Series<String, Double> seriesOfScores = new XYChart.Series<>();
         seriesOfScores.setName("Score");
         long actual = 0;
-        for (Double mean : getMeanScore(solutionScore)) {
+        for(Double mean: scores){
             actual++;
             seriesOfScores.getData().add(new XYChart.Data<>(String.valueOf(actual), mean));
         }
@@ -57,21 +55,16 @@ public class PlotController {
         chart.getData().add(seriesOfScores);
     }
 
-    private LinkedList<Double> getMeanScore(SolutionScore solutionScore) { //TODO: Move to solution score
-        LinkedList<Double> meanScores = new LinkedList<>();
-        for (List<EvaluatedIndividual> individuals : solutionScore.getEpochs()) {
-            double sumOfScores = 0;
-            int counter = 0;
-            for (EvaluatedIndividual individual : individuals) {
-                sumOfScores += individual.getScore();
-                counter++;
-            }
-            meanScores.add(sumOfScores / counter);
-        }
-        return meanScores;
+
+    public void handleBestScores(ActionEvent actionEvent) {
+        setChartData(solutionScore.bestScoresOfEpochs());
     }
 
-    public void handleOnButtonBack(ActionEvent actionEvent) {
-        primaryStage.setScene(prevScene);
+    public void handleOnStandardDeviations(ActionEvent actionEvent) {
+    }
+
+    public void handleOnMediumScores(ActionEvent actionEvent) {
+        setChartData(solutionScore.mediumScoresOfEpochs());
+
     }
 }

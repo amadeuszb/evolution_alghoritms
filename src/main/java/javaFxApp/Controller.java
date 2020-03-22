@@ -70,6 +70,9 @@ public class Controller implements Initializable {
         methodMutation.getItems().addAll(Arrays.asList(MutationType.values()));
         methodCrossover.getItems().addAll(Arrays.asList(CrossoverType.values()));
         methodSelection.getItems().addAll(Arrays.asList(SelectionMethodType.values()));
+        methodCrossover.setValue(CrossoverType.TwoPoints);
+        methodSelection.setValue(SelectionMethodType.Roulette);
+        methodMutation.setValue(MutationType.TWO_POINTS);
     }
 
     @FXML
