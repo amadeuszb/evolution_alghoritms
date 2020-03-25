@@ -1,7 +1,6 @@
 package javaFxApp;
 
 import javafx.scene.chart.XYChart;
-import model.Individual;
 import model.SolutionScore;
 import solution.SolutionModel;
 import javafx.event.ActionEvent;
@@ -14,7 +13,6 @@ import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -43,7 +41,7 @@ public class PlotController {
         setChartData(solutionScore.mediumScoresOfEpochs());
     }
 
-    public void setChartData(LinkedList<Double> scores) {
+    public void setChartData(List<Double> scores) {
         XYChart.Series<String, Double> seriesOfScores = new XYChart.Series<>();
         seriesOfScores.setName("Score");
         long actual = 0;
@@ -61,6 +59,7 @@ public class PlotController {
     }
 
     public void handleOnStandardDeviations(ActionEvent actionEvent) {
+        setChartData(solutionScore.standardDeviationsOfEpochs());
     }
 
     public void handleOnMediumScores(ActionEvent actionEvent) {

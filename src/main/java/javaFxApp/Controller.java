@@ -105,7 +105,7 @@ public class Controller implements Initializable {
                 .withMutationProbability(valueOfLabelDouble(mutationProbability))
                 .withInversionProbability(valueOfLabelDouble(inversionProbability))
                 .withRandomSeed(valueOfLabelInt(randomSeed))
-                .withElitesCount(10);
+                .withElitesCount(valueOfLabelInt(amountOfElites));
         return modelBuilder.build();
     }
 

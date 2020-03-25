@@ -1,10 +1,9 @@
 package model;
 
-import javafx.fxml.FXML;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SolutionScore {
 
@@ -38,7 +37,7 @@ public class SolutionScore {
             double bestScore = Double.MAX_VALUE;
             for (EvaluatedIndividual individual : individuals) {
                 //The best score for our method
-                if (Math.abs(individual.getScore() -1)  < bestScore) {
+                if (Math.abs(individual.getScore() - 1) < bestScore) {
                     bestScore = individual.getScore();
                 }
             }
@@ -62,9 +61,32 @@ public class SolutionScore {
         return mediumScores;
     }
 
-    @FXML
-    public void handleOnBestScores() {
-
+    public List<Double> standardDeviationsOfEpochs() {
+        return getEpochs().
+                stream()
+                .map(this::standardDeviation)
+                .collect(Collectors.toList());
     }
+
+    private Double standardDeviation(List<EvaluatedIndividual> evaluatedIndividuals) {
+        List<Double> scores = evaluatedIndividuals.stream()
+                .map(EvaluatedIndividual::getScore)
+                .collect(Collectors.toList());
+        double sum = 0.0, standardDeviation = 0.0;
+        int length = scores.size();
+
+        for (double num : scores) {
+            sum += num;
+        }
+
+        double mean = sum / length;
+
+        for (double num : scores) {
+            standardDeviation += Math.pow(num - mean, 2);
+        }
+
+        return Math.sqrt(standardDeviation / length);
+    }
+
 
 }
