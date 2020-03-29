@@ -18,8 +18,6 @@ import mutation.Mutator;
 import mutation.MutatorFactory;
 import mutation.PopulationMutator;
 import selection.SelectionMethod;
-import selection.SelectionMethodFactory;
-import selection.SelectionMethodType;
 
 import java.util.List;
 import java.util.Random;
@@ -27,7 +25,7 @@ import java.util.Random;
 public class SolutionModelBuilder {
     private int populationSize;
     private Function function;
-    private SelectionMethodType selectionMethodType;
+    private SelectionMethod selectionMethod;
     private CrossoverType crossoverType;
     private MutationType mutationType;
     private double mutationProbability;
@@ -47,8 +45,8 @@ public class SolutionModelBuilder {
         return this;
     }
 
-    public SolutionModelBuilder withSelectionMethod(SelectionMethodType selectionMethodType) {
-        this.selectionMethodType = selectionMethodType;
+    public SolutionModelBuilder withSelectionMethod(SelectionMethod selectionMethod) {
+        this.selectionMethod = selectionMethod;
         return this;
     }
 
@@ -90,7 +88,7 @@ public class SolutionModelBuilder {
     public SolutionModel build() {
         List<Individual> population = new Initializer(random).getInitialPopulation(populationSize, function.getBeginOfSquare(), function.getEndOfSquare());
         CrossoverMethod crossoverMethod = new CrossoverMethodFactory(random).getCrossoverMethod(crossoverType);
-        SelectionMethod selectionMethod = new SelectionMethodFactory(random).getSelectionMethod(selectionMethodType);
+        SelectionMethod selectionMethod = this.selectionMethod;
         Converter converter = new Converter(function);
         Mutator mutator = new MutatorFactory(function, converter, random, byteSwitcher).getMutator(mutationType);
         PopulationCrossover populationCrossover = new PopulationCrossover(converter, crossoverMethod, crossoverProbability, random);

@@ -34,8 +34,8 @@
             <Label text="Method Of Crossover" />
             <ChoiceBox fx:id="methodCrossover" prefWidth="150.0" />
             <Label text="Method Of Selection" />
-            <ChoiceBox fx:id="methodSelection" prefWidth="150.0" />
-            <Label text="Selection parameter" />
+            <ChoiceBox fx:id="methodSelection" prefWidth="150.0" onAction="#onSelectionChange"/>
+            <Label text="Selection parameter" fx:id="selectionParameterLabel"/>
             <TextField fx:id="selectionParameter" />
             <Label text="Random Seed" />
             <TextField fx:id="randomSeed" text="1" />

@@ -1,6 +1,7 @@
 import evaluator.Evaluator;
 import model.EvaluatedIndividual;
 import model.SolutionScore;
+import selection.BestSelection;
 import solution.SolutionModel;
 import solution.SolutionModelBuilder;
 import crossover.CrossoverType;
@@ -23,7 +24,7 @@ public class Main {
                 .withFunction(function)
                 .withMutationType(MutationType.ONE_POINT)
                 .withPopulationSize(sizeOfPopulation)
-                .withSelectionMethod(SelectionMethodType.Tournament)
+                .withSelectionMethod(new BestSelection(0.3))
                 .withCrossoverProbability(0.8)
                 .withMutationProbability(0.05)
                 .withInversionProbability(0.001)
