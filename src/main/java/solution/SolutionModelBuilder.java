@@ -99,6 +99,6 @@ public class SolutionModelBuilder {
         InversionOperator inversionOperator = new InversionOperator(random);
         PopulationInverter populationInverter = new PopulationInverter(inversionOperator, converter, random, inversionProbability);
         EliteStrategy eliteStrategy = new EliteStrategy(elitesCount);
-        return new SolutionModel(population, evaluator, selectionMethod, populationCrossover, populationMutator, populationInverter, eliteStrategy);
+        return new SolutionModel(population, evaluator, selectionMethod, populationCrossover, populationMutator, populationInverter, eliteStrategy, function);
     }
 }

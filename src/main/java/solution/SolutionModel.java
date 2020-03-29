@@ -3,6 +3,7 @@ package solution;
 import crossover.PopulationCrossover;
 import elite.EliteStrategy;
 import evaluator.Evaluator;
+import function.Function;
 import inversion.PopulationInverter;
 import model.EvaluatedIndividual;
 import model.Individual;
@@ -20,10 +21,11 @@ public class SolutionModel {
     private final PopulationMutator populationMutator;
     private final PopulationInverter populationInverter;
     private final EliteStrategy eliteStrategy;
+    private final Function function;
 
     public SolutionModel(List<Individual> population, Evaluator evaluator, SelectionMethod selectionMethod,
                          PopulationCrossover populationCrossover, PopulationMutator populationMutator,
-                         PopulationInverter populationInverter, EliteStrategy eliteStrategy) {
+                         PopulationInverter populationInverter, EliteStrategy eliteStrategy, Function function) {
         this.population = population;
         this.evaluator = evaluator;
         this.selectionMethod = selectionMethod;
@@ -31,10 +33,11 @@ public class SolutionModel {
         this.populationMutator = populationMutator;
         this.populationInverter = populationInverter;
         this.eliteStrategy = eliteStrategy;
+        this.function = function;
     }
 
     public SolutionScore learn(int epochs) {
-        SolutionScore solutionScore = new SolutionScore();
+        SolutionScore solutionScore = new SolutionScore(function);
         List<EvaluatedIndividual> evaluatedPopulation;
         evaluatedPopulation = evaluator.evaluation(population);
 

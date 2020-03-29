@@ -5,13 +5,12 @@ import model.Individual;
 
 import java.util.*;
 
-public class TournamentSelection extends SelectionMethod {
+public class TournamentSelection implements SelectionMethod {
 
     private final Random random;
     private final int tournamentSize;
 
     public TournamentSelection(Random random, int tournamentSize) {
-        super(random);
         this.random = random;
         this.tournamentSize = tournamentSize;
     }

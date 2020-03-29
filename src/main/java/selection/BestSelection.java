@@ -5,12 +5,11 @@ import model.Individual;
 
 import java.util.*;
 
-public class BestSelection extends SelectionMethod {
+public class BestSelection implements SelectionMethod {
 
     private final double percentageOfBest;
 
-    public BestSelection(Random random, double percentageOfBest) {
-        super(random);
+    public BestSelection(double percentageOfBest) {
         this.percentageOfBest = percentageOfBest;
     }
 

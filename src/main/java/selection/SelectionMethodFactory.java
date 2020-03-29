@@ -12,7 +12,7 @@ public class SelectionMethodFactory {
     public SelectionMethod getSelectionMethod(SelectionMethodType methodType) {
         switch (methodType) {
             case Best:
-                return new BestSelection(random, 0.3); //TODO
+                return new BestSelection(0.3); //TODO
             case Roulette:
                 return new RouletteSelection(random);
             case Tournament:

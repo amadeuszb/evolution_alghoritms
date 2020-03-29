@@ -1,5 +1,7 @@
 package model;
 
+import function.Function;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,7 +9,10 @@ import java.util.stream.Collectors;
 
 public class SolutionScore {
 
-    public SolutionScore() {
+    private final Function function;
+
+    public SolutionScore(Function function) {
+        this.function = function;
         epochs = new ArrayList<>();
     }
 
@@ -34,29 +39,28 @@ public class SolutionScore {
     public LinkedList<Double> bestScoresOfEpochs() {
         LinkedList<Double> bestScores = new LinkedList<>();
         for (List<EvaluatedIndividual> individuals : getEpochs()) {
-            double bestScore = Double.MAX_VALUE;
+            double bestScore = Double.MIN_VALUE;
+            Individual bestIndividual = null;
             for (EvaluatedIndividual individual : individuals) {
                 //The best score for our method
-                if (Math.abs(individual.getScore() - 1) < bestScore) {
+                if (individual.getScore() > bestScore) {
                     bestScore = individual.getScore();
+                    bestIndividual = individual.getIndividual();
                 }
             }
-            bestScores.add(bestScore);
+            bestScores.add(function.fun(bestIndividual.getX1(), bestIndividual.getX2()));
         }
         return bestScores;
     }
-
 
     public LinkedList<Double> mediumScoresOfEpochs() {
         LinkedList<Double> mediumScores = new LinkedList<>();
         for (List<EvaluatedIndividual> individuals : getEpochs()) {
             double sumOfScores = 0;
-            int counter = 0;
             for (EvaluatedIndividual individual : individuals) {
-                sumOfScores += individual.getScore();
-                counter++;
+                sumOfScores += function.fun(individual.getIndividual().getX1(), individual.getIndividual().getX2());
             }
-            mediumScores.add(sumOfScores / counter);
+            mediumScores.add(sumOfScores / individuals.size());
         }
         return mediumScores;
     }
@@ -87,6 +91,4 @@ public class SolutionScore {
 
         return Math.sqrt(standardDeviation / length);
     }
-
-
 }

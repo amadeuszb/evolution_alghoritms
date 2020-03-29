@@ -6,10 +6,12 @@ import model.RouletteIndividual;
 
 import java.util.*;
 
-public class RouletteSelection extends SelectionMethod {
+public class RouletteSelection implements SelectionMethod {
+
+    private final Random random;
 
     public RouletteSelection(Random random) {
-        super(random);
+        this.random = random;
     }
 
     @Override
@@ -26,5 +28,19 @@ public class RouletteSelection extends SelectionMethod {
         }
 
         return getNewPopulation(newPopulationSize, probabilityPopulation);
+    }
+
+    protected List<Individual> getNewPopulation(int newPopulationSize, List<RouletteIndividual> probabilityPopulation) {
+        ArrayList<Individual> newPopulation = new ArrayList<>();
+        for (int i = 0; i < newPopulationSize; i++) {
+            double randomNumber = random.nextDouble();
+            for (RouletteIndividual rouletteIndividual : probabilityPopulation) {
+                if (rouletteIndividual.getDistribuant() > randomNumber) {
+                    newPopulation.add(rouletteIndividual.getIndividual());
+                    break;
+                }
+            }
+        }
+        return newPopulation;
     }
 }
