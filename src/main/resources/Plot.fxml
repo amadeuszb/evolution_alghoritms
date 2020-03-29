@@ -68,14 +68,8 @@
                         </HBox>
                         <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                             <children>
-                                <Label styleClass="sessionLabels" textFill="WHITE" HBox.hgrow="ALWAYS">
-                                    <HBox.margin>
-                                        <Insets top="9.0" />
-                                    </HBox.margin>
-                                    <padding>
-                                        <Insets bottom="9.0" />
-                                    </padding></Label>
-                                <TextField fx:id="numberOfSessionsField" alignment="CENTER_RIGHT" styleClass="sessionFields" />
+                                <Label fx:id="numberOfSessionsField" styleClass="sessionFields" text="Best Score: " />
+                        <Label fx:id="bestScore" alignment="CENTER_RIGHT" styleClass="sessionFields" />
                             </children>
                             <VBox.margin>
                                 <Insets bottom="10.0" top="25.0" />

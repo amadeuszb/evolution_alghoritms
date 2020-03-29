@@ -22,7 +22,8 @@ public class PlotController {
 
     public LineChart<String, Double> chart;
 
-    public TextField numberOfSessionsField;
+    public Label numberOfSessionsField;
+    public Label bestScore;
 
     private Stage myOwnStage;
     private SolutionModel solutionModel;
@@ -31,13 +32,13 @@ public class PlotController {
     private Stage primaryStage;
 
     public void initStagePlot(Stage stage, SolutionModel solutionModel, int amountOfEras) {
-        numberOfSessionsField.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         primaryStage = stage;
         prevScene = stage.getScene();
         myOwnStage = stage;
         this.solutionModel = solutionModel;
         solutionScore = solutionModel.learn(amountOfEras);
         groupNameLabel.setText("Time Of Calculations: " + solutionScore.getTimeOfExecution() + "ms");
+        bestScore.setText(solutionScore.bestScoresOfEpochs().get(amountOfEras - 1).toString());
         setChartData(solutionScore.mediumScoresOfEpochs());
     }
 
