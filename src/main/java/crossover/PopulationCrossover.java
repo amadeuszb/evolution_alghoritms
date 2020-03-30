@@ -20,12 +20,12 @@ public class PopulationCrossover {
         this.random = random;
     }
 
-    public List<Individual> crossover(List<Individual> population) {
+    public List<Individual> crossover(List<Individual> population, int sizeOfPopulation) {
         ArrayList<Individual> newPopulation = new ArrayList<>();
-        int sizeOfPopulation = population.size();
+        int selectedPopulationSize = population.size();
         for (int i = 0; i < sizeOfPopulation; i += 2) {
-            Individual ione = population.get(i);
-            Individual itwo = population.get(i + 1);
+            Individual ione = population.get(random.nextInt(selectedPopulationSize));
+            Individual itwo = population.get(random.nextInt(selectedPopulationSize));
             if (random.nextDouble() > crossoverProbability) {
                 byte[] ioneBinary = converter.toBinary(ione.getX1());
                 byte[] itwoBinary = converter.toBinary(itwo.getX1());
