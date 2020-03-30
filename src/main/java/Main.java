@@ -1,4 +1,3 @@
-import evaluator.Evaluator;
 import model.EvaluatedIndividual;
 import model.SolutionScore;
 import selection.BestSelection;
@@ -7,9 +6,7 @@ import solution.SolutionModelBuilder;
 import crossover.CrossoverType;
 import function.DropwaveFunction;
 import function.Function;
-import model.Individual;
 import mutation.*;
-import selection.SelectionMethodType;
 
 import java.util.*;
 

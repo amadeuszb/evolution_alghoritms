@@ -3,7 +3,6 @@ package converter;
 import function.Function;
 import model.Individual;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Converter {
