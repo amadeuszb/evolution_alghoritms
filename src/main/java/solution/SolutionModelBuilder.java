@@ -34,6 +34,7 @@ public class SolutionModelBuilder {
     private Random random = new Random();
     private ByteSwitcher byteSwitcher = new ByteSwitcher();
     private int elitesCount;
+    private long seed;
 
     public SolutionModelBuilder withPopulationSize(int populationSize) {
         this.populationSize = populationSize;
@@ -76,7 +77,7 @@ public class SolutionModelBuilder {
     }
 
     public SolutionModelBuilder withRandomSeed(long seed) {
-        random.setSeed(seed);
+        this.seed = seed;
         return this;
     }
 
@@ -86,6 +87,10 @@ public class SolutionModelBuilder {
     }
 
     public SolutionModel build() {
+        if (seed != 0)
+            random = new Random(seed);
+        else
+            random = new Random();
         List<Individual> population = new Initializer(random).getInitialPopulation(populationSize, function.getBeginOfSquare(), function.getEndOfSquare());
         CrossoverMethod crossoverMethod = new CrossoverMethodFactory(random).getCrossoverMethod(crossoverType);
         SelectionMethod selectionMethod = this.selectionMethod;

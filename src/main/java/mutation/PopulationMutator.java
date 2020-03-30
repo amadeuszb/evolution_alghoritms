@@ -26,12 +26,8 @@ public class PopulationMutator {
         for (Individual individual : population) {
             if (random.nextDouble() < mutationProbability) {
                 byte[] ioneBinary = converter.toBinary(individual.getX1());
-                byte[] newTwoIndividuals = mutator.mutate(ioneBinary);
-                double newX1 = converter.toDecimal(newTwoIndividuals);
-                byte[] ioneBinaryX2 = converter.toBinary(individual.getX2());
-                byte[] newTwoIndividualsX2 = mutator.mutate(ioneBinaryX2);
-                double newX2 = converter.toDecimal(newTwoIndividualsX2);
-                newIndividuals.add(new Individual(newX1, newX2));
+                byte[] mutated = mutator.mutate(ioneBinary);
+                newIndividuals.add(converter.toIndividual(mutated));
             } else {
                 newIndividuals.add(individual);
             }

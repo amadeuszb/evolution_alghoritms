@@ -26,19 +26,12 @@ public class PopulationCrossover {
         for (int i = 0; i < sizeOfPopulation; i += 2) {
             Individual ione = population.get(random.nextInt(selectedPopulationSize));
             Individual itwo = population.get(random.nextInt(selectedPopulationSize));
-            if (random.nextDouble() > crossoverProbability) {
-                byte[] ioneBinary = converter.toBinary(ione.getX1());
-                byte[] itwoBinary = converter.toBinary(itwo.getX1());
+            if (random.nextDouble() < crossoverProbability) {
+                byte[] ioneBinary = converter.toBinary(ione);
+                byte[] itwoBinary = converter.toBinary(itwo);
                 byte[][] newTwoIndividuals = crossoverMethod.crossover(ioneBinary, itwoBinary);
-                double ioneX1 = (converter.toDecimal(newTwoIndividuals[0]));
-                double itwoX1 = (converter.toDecimal(newTwoIndividuals[1]));
-                byte[] ioneBinaryX2 = converter.toBinary(ione.getX2());
-                byte[] itwoBinaryX2 = converter.toBinary(itwo.getX2());
-                byte[][] newTwoIndividualsX2 = crossoverMethod.crossover(ioneBinaryX2, itwoBinaryX2);
-                double ioneX2 = (converter.toDecimal(newTwoIndividualsX2[0]));
-                double itwoX2 = (converter.toDecimal(newTwoIndividualsX2[1]));
-                newPopulation.add(new Individual(ioneX1, ioneX2));
-                newPopulation.add(new Individual(itwoX1, itwoX2));
+                newPopulation.add(converter.toIndividual(newTwoIndividuals[0]));
+                newPopulation.add(converter.toIndividual(newTwoIndividuals[1]));
             } else {
                 newPopulation.add(ione);
                 newPopulation.add(itwo);
