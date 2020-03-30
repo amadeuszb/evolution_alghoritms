@@ -28,7 +28,7 @@ public class Main {
                 .withCrossoverProbability(0.8)
                 .withMutationProbability(0.05)
                 .withInversionProbability(0.001)
-                .withRandomSeed(1)
+                .withRandom(new Random(1))
                 .withElitesCount(10);
 
         SolutionModel solutionModel = modelBuilder.build();

@@ -102,7 +102,7 @@ public class Controller implements Initializable {
     private SolutionModel buildSolution() {
         Function function = new DropwaveFunction();
         SelectionMethod selectionMethod = null;
-        Random random = new Random();
+        Random random = new Random(valueOfLabelInt(randomSeed));
         switch (methodSelection.getValue()) {
             case Roulette:
                 selectionMethod = new RouletteSelection(random);
@@ -124,7 +124,7 @@ public class Controller implements Initializable {
                 .withCrossoverProbability(valueOfLabelDouble(crossoverProbability))
                 .withMutationProbability(valueOfLabelDouble(mutationProbability))
                 .withInversionProbability(valueOfLabelDouble(inversionProbability))
-                .withRandomSeed(valueOfLabelInt(randomSeed))
+                .withRandom(random)
                 .withElitesCount(valueOfLabelInt(amountOfElites));
         return modelBuilder.build();
     }
