@@ -45,10 +45,11 @@ public class SolutionModel {
         long startTime = System.nanoTime();
         for (int i = 0; i < epochs; i++) {
             List<Individual> elites = eliteStrategy.getElites(evaluatedPopulation);
-            elites.addAll(selectionMethod.select(evaluatedPopulation, evaluatedPopulation.size() - elites.size()));
+            population = selectionMethod.select(evaluatedPopulation, evaluatedPopulation.size() - elites.size());
             population = populationCrossover.crossover(elites);
             population = populationMutator.mutatePopulation(population);
             population = populationInverter.invertPopulation(population);
+            population.addAll(elites);
             evaluatedPopulation = evaluator.evaluation(population);
             solutionScore.getEpochs().add(evaluatedPopulation);
         }
