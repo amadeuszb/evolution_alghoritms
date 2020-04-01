@@ -1,3 +1,4 @@
+import database.DatabaseConnection;
 import model.EvaluatedIndividual;
 import model.SolutionScore;
 import selection.BestSelection;
@@ -11,8 +12,8 @@ import mutation.*;
 import java.util.*;
 
 public class Main {
-    private final static int sizeOfPopulation = 500;
-    private final static int amountOfEras = 1000;
+    private final static int sizeOfPopulation = 50;
+    private final static int amountOfEras = 10;
     private static Function function = new DropwaveFunction();
 
     public static void main(String[] args) {
@@ -29,7 +30,6 @@ public class Main {
                 .withElitesCount(10);
 
         SolutionModel solutionModel = modelBuilder.build();
-
         SolutionScore score = solutionModel.learn(amountOfEras);
         List<List<EvaluatedIndividual>> epochs = score.getEpochs();
         List<EvaluatedIndividual> lastEpoch = epochs.get(epochs.size() - 1);
@@ -37,6 +37,9 @@ public class Main {
             System.out.println("X1: " + i.getIndividual().getX1() + " X2: " + i.getIndividual().getX2() + " Y: " + i.getScore());
         }
         System.out.println("Czas wykonania: " + score.getTimeOfExecution() + "ms");
+        DatabaseConnection databaseConnection = new DatabaseConnection("t7");
+        databaseConnection.insertCalculation(score);
+
     }
 
 }
