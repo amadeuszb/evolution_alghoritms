@@ -5,7 +5,6 @@ import model.Individual;
 import model.SolutionScore;
 
 import java.sql.*;
-import java.util.LinkedList;
 import java.util.List;
 
 public class DatabaseConnection {
@@ -89,52 +88,51 @@ public class DatabaseConnection {
         }
     }
 
-    public void insertCalculation(SolutionScore solutionScore){
-        String sql = "INSERT INTO CALCULATION(NAME) VALUES('TEST')";
-        int calculationId = 1; //TODO: OBTAIN HOW TO GET ID
+    public void insertCalculation(SolutionScore solutionScore) {
+        String sql = "INSERT INTO CALCULATION(NAME) output inserted.CALCULATION_ID VALUES('TEST')";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.executeUpdate();
+            int calculationId = ps.executeUpdate();
+            int epochNumber = 0;
+            for (List<EvaluatedIndividual> sc : solutionScore.getEpochs()) {
+                insertEpoch(sc, calculationId, epochNumber++);
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        int epochNumber = 1;
-        for(List<EvaluatedIndividual> sc: solutionScore.getEpochs()){
-            insertEpoch(sc,calculationId, epochNumber++);
-        }
+
     }
 
-    public void insertEpoch(List<EvaluatedIndividual> evaluatedIndividuals, int calculationId, int epochNumber){
-        String sql = "INSERT INTO EPOCH(EPOCH_NUMBER, CALCULATION_ID) VALUES(?,?)";
-        int epochId = 1; //TODO: OBTAIN HOW TO GET ID
+    public void insertEpoch(List<EvaluatedIndividual> evaluatedIndividuals, int calculationId, int epochNumber) {
+        String sql = "INSERT INTO EPOCH(EPOCH_NUMBER, CALCULATION_ID) output inserted.EPOCH_ID VALUES(?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, epochNumber);
             ps.setInt(2, calculationId);
-            ps.executeUpdate();
+            int epochId = ps.executeUpdate();
+            evaluatedIndividuals.forEach(ei -> insertIndividual(ei, epochId));
         } catch (SQLException e) {
             System.out.println("xd");
             System.out.println(e.getMessage());
         }
-        evaluatedIndividuals.forEach(ei -> insertIndividual(ei, epochId));
+
     }
 
     public void insertIndividual(EvaluatedIndividual evaluatedIndividual, int epochId) {
-        String sql = "INSERT INTO INDIVIDUAL(X1,X2,Y,SCORE, EPOCH_ID) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO INDIVIDUAL(X1, X2, Y, SCORE, EPOCH_ID) VALUES(?,?,?,?,?)";
         Individual individual = evaluatedIndividual.getIndividual();
         double score = evaluatedIndividual.getScore();
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-                    ps.setDouble(1, individual.getX1());
-                    ps.setDouble(2, individual.getX2());
-                    ps.setDouble(3, score);
-                    ps.setDouble(4, score);
-                    ps.setInt(5, epochId);
-                    ps.executeUpdate();
+            ps.setDouble(1, individual.getX1());
+            ps.setDouble(2, individual.getX2());
+            ps.setDouble(3, score);
+            ps.setDouble(4, score);
+            ps.setInt(5, epochId);
+            ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("xddd");
             System.out.println(e.getMessage());
         }
     }
-
 }
