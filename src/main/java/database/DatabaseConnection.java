@@ -79,52 +79,81 @@ public class DatabaseConnection {
     public void insertCalculation(SolutionScore solutionScore) {
         final String sql = "INSERT INTO CALCULATION(NAME) VALUES('TEST');";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            connection.setAutoCommit(false);
             int calculationId = ExecuteScalar(ps);
             int epochNumber = 0;
             for (List<EvaluatedIndividual> sc : solutionScore.getEpochs()) {
                 insertEpoch(sc, calculationId, epochNumber++);
             }
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-
     }
 
     private int ExecuteScalar(PreparedStatement ps) throws SQLException {
-        try (PreparedStatement getId = connection.prepareStatement("SELECT last_insert_rowid();")) {
-            ps.execute();
-            ResultSet resultSet = getId.executeQuery();
-            resultSet.next();
-            return resultSet.getInt(1);
-        }
+        PreparedStatement getId = getInsertedIdStatement();
+        ps.execute();
+        ResultSet resultSet = getId.executeQuery();
+        resultSet.next();
+        return resultSet.getInt(1);
     }
 
     public void insertEpoch(List<EvaluatedIndividual> evaluatedIndividuals, int calculationId, int epochNumber) {
-        final String sql = "INSERT INTO EPOCH(EPOCH_NUMBER, CALCULATION_ID) VALUES(?,?); SELECT last_insert_rowid();";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, epochNumber);
-            ps.setInt(2, calculationId);
+            PreparedStatement ps = getInsertEpochStatement(epochNumber, calculationId);
             int epochId = ExecuteScalar(ps);
             evaluatedIndividuals.forEach(ei -> insertIndividual(ei, epochId));
+            getInsertIndividualStatement().executeBatch();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-
     }
 
-    public void insertIndividual(EvaluatedIndividual evaluatedIndividual, int epochId) {
-        final String sql = "INSERT INTO INDIVIDUAL(X1, X2, Y, SCORE, EPOCH_ID) VALUES(?,?,?,?,?)";
+    private PreparedStatement insertedIdStatement;
+
+    private PreparedStatement getInsertedIdStatement() throws SQLException {
+        if (insertedIdStatement == null) {
+            insertedIdStatement = connection.prepareStatement("SELECT last_insert_rowid();");
+        }
+        return insertedIdStatement;
+    }
+
+    private PreparedStatement insertEpoch;
+
+    private PreparedStatement getInsertEpochStatement(int calculationId, int epochNumber) throws SQLException {
+        if (insertEpoch == null) {
+            final String sql = "INSERT INTO EPOCH(EPOCH_NUMBER, CALCULATION_ID) VALUES(?,?);";
+            insertEpoch = connection.prepareStatement(sql);
+        }
+        insertEpoch.setInt(1, epochNumber);
+        insertEpoch.setInt(2, calculationId);
+        return insertEpoch;
+    }
+
+
+    private PreparedStatement insertIndividual;
+
+    private PreparedStatement getInsertIndividualStatement() throws SQLException {
+
+        if (insertIndividual == null) {
+            final String sql = "INSERT INTO INDIVIDUAL(X1, X2, Y, SCORE, EPOCH_ID) VALUES(?,?,?,?,?)";
+            insertIndividual = connection.prepareStatement(sql);
+        }
+        return insertIndividual;
+    }
+
+    private void insertIndividual(EvaluatedIndividual evaluatedIndividual, int epochId) {
         Individual individual = evaluatedIndividual.getIndividual();
         double score = evaluatedIndividual.getScore();
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = getInsertIndividualStatement();
             ps.setDouble(1, individual.getX1());
             ps.setDouble(2, individual.getX2());
             ps.setDouble(3, score);
             ps.setDouble(4, score);
             ps.setInt(5, epochId);
-            ps.execute();
+            ps.addBatch();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
