@@ -34,6 +34,7 @@ public class SolutionModelBuilder {
     private Random random = new Random();
     private ByteSwitcher byteSwitcher = new ByteSwitcher();
     private int elitesCount;
+    private double selectionPercentage;
 
     public SolutionModelBuilder withPopulationSize(int populationSize) {
         this.populationSize = populationSize;
@@ -85,18 +86,29 @@ public class SolutionModelBuilder {
         return this;
     }
 
+    public SolutionModelBuilder withSelectionPercentage(double selectionPercentage) {
+        this.selectionPercentage = selectionPercentage;
+        return this;
+    }
+
     public SolutionModel build() {
-        List<Individual> population = new Initializer(random).getInitialPopulation(populationSize, function.getBeginOfSquare(), function.getEndOfSquare());
+        List<Individual> population = new Initializer(random).getInitialPopulation(populationSize,
+                function.getBeginOfSquare(), function
+                .getEndOfSquare());
         CrossoverMethod crossoverMethod = new CrossoverMethodFactory(random).getCrossoverMethod(crossoverType);
         SelectionMethod selectionMethod = this.selectionMethod;
         Converter converter = new Converter(function);
         Mutator mutator = new MutatorFactory(function, converter, random, byteSwitcher).getMutator(mutationType);
-        PopulationCrossover populationCrossover = new PopulationCrossover(converter, crossoverMethod, crossoverProbability, random);
+        PopulationCrossover populationCrossover = new PopulationCrossover(converter, crossoverMethod,
+                crossoverProbability, random);
         PopulationMutator populationMutator = new PopulationMutator(converter, mutator, mutationProbability, random);
         Evaluator evaluator = new Evaluator(function);
         InversionOperator inversionOperator = new InversionOperator(random);
-        PopulationInverter populationInverter = new PopulationInverter(inversionOperator, converter, random, inversionProbability);
+        PopulationInverter populationInverter = new PopulationInverter(inversionOperator, converter, random,
+                inversionProbability);
         EliteStrategy eliteStrategy = new EliteStrategy(elitesCount);
-        return new SolutionModel(population, evaluator, selectionMethod, populationCrossover, populationMutator, populationInverter, eliteStrategy, function);
+        int selectionCount = (int) ((populationSize - elitesCount) * selectionPercentage);
+        return new SolutionModel(population, evaluator, selectionMethod, populationCrossover, populationMutator,
+                populationInverter, eliteStrategy, selectionCount);
     }
 }

@@ -31,7 +31,6 @@ public class Converter {
     }
 
     private byte[] integerToBinary(int chromosome) {
-
         byte[] byteChromosome = new byte[sizeOfChromosome];
         for (int i = 0; i < sizeOfChromosome; i++) {
             byteChromosome[i] = (byte) ((chromosome & (1 << i)) >> i);

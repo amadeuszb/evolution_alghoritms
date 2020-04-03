@@ -2,8 +2,13 @@ package function;
 
 public class DropwaveFunction implements Function {
 
+    private final int accuracyOfChromosome;
     private double beginOfSquare = -5.12;
     private double endOfSquare = 5.12;
+
+    public DropwaveFunction(int accuracyOfChromosome){
+        this.accuracyOfChromosome = accuracyOfChromosome;
+    }
 
     @Override
     public double getBeginOfSquare() {
@@ -17,7 +22,7 @@ public class DropwaveFunction implements Function {
 
 
     public int sizeOfBinaryString() {
-        return (int) Math.ceil(Math.log((endOfSquare - beginOfSquare) * Math.pow(10, 6)) + Math.log(1));
+        return (int) Math.ceil(Math.log((endOfSquare - beginOfSquare) * Math.pow(10, accuracyOfChromosome)) + Math.log(1));
     }
 
     public double fun(double x1, double x2) {

@@ -1,18 +1,14 @@
 package model;
 
-import function.Function;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SolutionScore {
 
-    private final Function function;
 
-    public SolutionScore(Function function) {
-        this.function = function;
+    public SolutionScore() {
         epochs = new ArrayList<>();
     }
 
@@ -36,40 +32,23 @@ public class SolutionScore {
         this.epochs = epochs;
     }
 
-    public LinkedList<Double> bestScoresOfEpochs() {
-        LinkedList<Double> bestScores = new LinkedList<>();
-        for (List<EvaluatedIndividual> individuals : getEpochs()) {
-            double bestScore = Double.MIN_VALUE;
-            Individual bestIndividual = null;
-            for (EvaluatedIndividual individual : individuals) {
-                //The best score for our method
-                if (individual.getScore() > bestScore) {
-                    bestScore = individual.getScore();
-                    bestIndividual = individual.getIndividual();
-                }
-            }
-            bestScores.add(function.fun(bestIndividual.getX1(), bestIndividual.getX2()));
-        }
-        return bestScores;
+    public List<Double> bestScoresOfEpochs() {
+        return getEpochs().stream()
+                .map(p -> p.stream()
+                        .max(Comparator.comparingDouble(EvaluatedIndividual::getScore))
+                        .map(EvaluatedIndividual::getY)
+                        .get())
+                .collect(Collectors.toList());
     }
 
-    public LinkedList<Double> mediumScoresOfEpochs() {
-        LinkedList<Double> mediumScores = new LinkedList<>();
-        for (List<EvaluatedIndividual> individuals : getEpochs()) {
-            double sumOfScores = 0;
-            for (EvaluatedIndividual individual : individuals) {
-                sumOfScores += function.fun(individual.getIndividual().getX1(), individual.getIndividual().getX2());
-            }
-            mediumScores.add(sumOfScores / individuals.size());
-        }
-        return mediumScores;
+    public List<Double> meanScoresOfEpochs() {
+        return getEpochs().stream()
+                .map(p -> p.stream().mapToDouble(EvaluatedIndividual::getY).average().orElse(Double.NaN))
+                .collect(Collectors.toList());
     }
 
     public List<Double> standardDeviationsOfEpochs() {
-        return getEpochs().
-                stream()
-                .map(this::standardDeviation)
-                .collect(Collectors.toList());
+        return getEpochs().stream().map(this::standardDeviation).collect(Collectors.toList());
     }
 
     private Double standardDeviation(List<EvaluatedIndividual> evaluatedIndividuals) {

@@ -16,10 +16,7 @@ public class RouletteSelection implements SelectionMethod {
 
     @Override
     public List<Individual> select(List<EvaluatedIndividual> population, int newPopulationSize) {
-        double sumOfResults = 0;
-        for (EvaluatedIndividual individual : population) {
-            sumOfResults += individual.getScore();
-        }
+        double sumOfResults = population.stream().mapToDouble(EvaluatedIndividual::getScore).sum();
         ArrayList<RouletteIndividual> probabilityPopulation = new ArrayList<>();
         double previousSum = 0;
         for (EvaluatedIndividual x : population) {

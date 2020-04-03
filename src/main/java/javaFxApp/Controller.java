@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,11 +28,8 @@ import java.util.ResourceBundle;
 import static selection.SelectionMethodType.Roulette;
 import static selection.SelectionMethodType.values;
 
-
 public class Controller implements Initializable {
 
-    @FXML
-    public Label selectionParameterLabel;
     @FXML
     private TextField eras;
     @FXML
@@ -56,6 +52,8 @@ public class Controller implements Initializable {
     private ChoiceBox<SelectionMethodType> methodSelection;
     @FXML
     private TextField selectionParameter;
+    @FXML
+    private TextField selectionPercent;
     @FXML
     private TextField randomSeed;
     @FXML
@@ -100,7 +98,7 @@ public class Controller implements Initializable {
     }
 
     private SolutionModel buildSolution() {
-        Function function = new DropwaveFunction();
+        Function function = new DropwaveFunction(valueOfLabelInt(accuracyOfChormosome));
         SelectionMethod selectionMethod = null;
         Random random = new Random(valueOfLabelInt(randomSeed));
         switch (methodSelection.getValue()) {
@@ -108,15 +106,14 @@ public class Controller implements Initializable {
                 selectionMethod = new RouletteSelection(random);
                 break;
             case Best:
-                selectionMethod = new BestSelection(valueOfLabelDouble(selectionParameter));
+                selectionMethod = new BestSelection();
                 break;
             case Tournament:
                 selectionMethod = new TournamentSelection(random, valueOfLabelInt(selectionParameter));
                 break;
         }
         SolutionModelBuilder modelBuilder = new SolutionModelBuilder();
-        modelBuilder
-                .withCrossoverType(methodCrossover.getValue())
+        modelBuilder.withCrossoverType(methodCrossover.getValue())
                 .withFunction(function)
                 .withMutationType(methodMutation.getValue())
                 .withPopulationSize(valueOfLabelInt(populationSize))
@@ -125,7 +122,8 @@ public class Controller implements Initializable {
                 .withMutationProbability(valueOfLabelDouble(mutationProbability))
                 .withInversionProbability(valueOfLabelDouble(inversionProbability))
                 .withRandom(random)
-                .withElitesCount(valueOfLabelInt(amountOfElites));
+                .withElitesCount(valueOfLabelInt(amountOfElites))
+                .withSelectionPercentage(valueOfLabelDouble(selectionPercent));
         return modelBuilder.build();
     }
 
@@ -140,15 +138,10 @@ public class Controller implements Initializable {
     public void onSelectionChange(ActionEvent actionEvent) {
         switch (methodSelection.getValue()) {
             case Roulette:
-                selectionParameterLabel.setText("No selection parameter");
+            case Best:
                 selectionParameter.setDisable(true);
                 break;
-            case Best:
-                selectionParameterLabel.setText("Percentage of the Best");
-                selectionParameter.setDisable(false);
-                break;
             case Tournament:
-                selectionParameterLabel.setText("Size of tournament");
                 selectionParameter.setDisable(false);
                 break;
         }

@@ -3,7 +3,6 @@ package solution;
 import crossover.PopulationCrossover;
 import elite.EliteStrategy;
 import evaluator.Evaluator;
-import function.Function;
 import inversion.PopulationInverter;
 import model.EvaluatedIndividual;
 import model.Individual;
@@ -21,11 +20,11 @@ public class SolutionModel {
     private final PopulationMutator populationMutator;
     private final PopulationInverter populationInverter;
     private final EliteStrategy eliteStrategy;
-    private final Function function;
+    private final int selectionCount;
 
     public SolutionModel(List<Individual> population, Evaluator evaluator, SelectionMethod selectionMethod,
                          PopulationCrossover populationCrossover, PopulationMutator populationMutator,
-                         PopulationInverter populationInverter, EliteStrategy eliteStrategy, Function function) {
+                         PopulationInverter populationInverter, EliteStrategy eliteStrategy, int selectionCount) {
         this.population = population;
         this.evaluator = evaluator;
         this.selectionMethod = selectionMethod;
@@ -33,11 +32,11 @@ public class SolutionModel {
         this.populationMutator = populationMutator;
         this.populationInverter = populationInverter;
         this.eliteStrategy = eliteStrategy;
-        this.function = function;
+        this.selectionCount = selectionCount;
     }
 
     public SolutionScore learn(int epochs) {
-        SolutionScore solutionScore = new SolutionScore(function);
+        SolutionScore solutionScore = new SolutionScore();
         List<EvaluatedIndividual> evaluatedPopulation;
         evaluatedPopulation = evaluator.evaluation(population);
 
@@ -45,7 +44,7 @@ public class SolutionModel {
         long startTime = System.nanoTime();
         for (int i = 0; i < epochs; i++) {
             List<Individual> elites = eliteStrategy.getElites(evaluatedPopulation);
-            population = selectionMethod.select(evaluatedPopulation, evaluatedPopulation.size() / 5);
+            population = selectionMethod.select(evaluatedPopulation, selectionCount);
             population = populationCrossover.crossover(population, evaluatedPopulation.size() - elites.size());
             population = populationMutator.mutatePopulation(population);
             population = populationInverter.invertPopulation(population);

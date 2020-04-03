@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-
 public class PlotController {
     public Label groupNameLabel;
     public Button backButton;
@@ -39,21 +38,20 @@ public class PlotController {
         databaseConnection.insertCalculation(solutionScore);
         groupNameLabel.setText("Time Of Calculations: " + solutionScore.getTimeOfExecution() + "ms");
         bestScore.setText(solutionScore.bestScoresOfEpochs().get(amountOfEras - 1).toString());
-        setChartData(solutionScore.mediumScoresOfEpochs());
+        setChartData(solutionScore.meanScoresOfEpochs());
     }
 
     public void setChartData(List<Double> scores) {
         XYChart.Series<String, Double> seriesOfScores = new XYChart.Series<>();
         seriesOfScores.setName("Score");
         long actual = 0;
-        for(Double mean: scores){
+        for (Double mean : scores) {
             actual++;
             seriesOfScores.getData().add(new XYChart.Data<>(String.valueOf(actual), mean));
         }
         chart.getData().clear();
         chart.getData().add(seriesOfScores);
     }
-
 
     public void handleBestScores(ActionEvent actionEvent) {
         setChartData(solutionScore.bestScoresOfEpochs());
@@ -64,7 +62,6 @@ public class PlotController {
     }
 
     public void handleOnMediumScores(ActionEvent actionEvent) {
-        setChartData(solutionScore.mediumScoresOfEpochs());
-
+        setChartData(solutionScore.meanScoresOfEpochs());
     }
 }

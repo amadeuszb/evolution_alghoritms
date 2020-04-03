@@ -14,7 +14,7 @@ import java.util.*;
 public class Main {
     private final static int sizeOfPopulation = 50;
     private final static int amountOfEras = 10;
-    private static Function function = new DropwaveFunction();
+    private static Function function = new DropwaveFunction(6);
 
     public static void main(String[] args) {
         SolutionModelBuilder modelBuilder = new SolutionModelBuilder();
@@ -22,11 +22,12 @@ public class Main {
                 .withFunction(function)
                 .withMutationType(MutationType.ONE_POINT)
                 .withPopulationSize(sizeOfPopulation)
-                .withSelectionMethod(new BestSelection(0.3))
+                .withSelectionMethod(new BestSelection())
                 .withCrossoverProbability(0.8)
                 .withMutationProbability(0.05)
                 .withInversionProbability(0.001)
                 .withRandom(new Random(1))
+                .withSelectionPercentage(0.3)
                 .withElitesCount(10);
 
         SolutionModel solutionModel = modelBuilder.build();
@@ -34,7 +35,8 @@ public class Main {
         List<List<EvaluatedIndividual>> epochs = score.getEpochs();
         List<EvaluatedIndividual> lastEpoch = epochs.get(epochs.size() - 1);
         for (EvaluatedIndividual i : lastEpoch) {
-            System.out.println("X1: " + i.getIndividual().getX1() + " X2: " + i.getIndividual().getX2() + " Y: " + i.getScore());
+            System.out.println("X1: " + i.getIndividual().getX1() + " X2: " + i.getIndividual()
+                    .getX2() + " Y: " + i.getScore());
         }
         System.out.println("Czas wykonania: " + score.getTimeOfExecution() + "ms");
         DatabaseConnection databaseConnection = new DatabaseConnection("t7");

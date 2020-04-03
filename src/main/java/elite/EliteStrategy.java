@@ -3,9 +3,9 @@ package elite;
 import model.EvaluatedIndividual;
 import model.Individual;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EliteStrategy {
     private final int eliteCount;
@@ -15,11 +15,10 @@ public class EliteStrategy {
     }
 
     public List<Individual> getElites(List<EvaluatedIndividual> population) {
-        Collections.sort(population);
-        ArrayList<Individual> elites = new ArrayList<>(eliteCount);
-        for (int i = 0; i < eliteCount; i++) {
-            elites.add(population.get(i).getIndividual());
-        }
-        return elites;
+        return population.stream()
+                .sorted(Comparator.comparingDouble(EvaluatedIndividual::getScore).reversed())
+                .map(EvaluatedIndividual::getIndividual)
+                .limit(eliteCount)
+                .collect(Collectors.toList());
     }
 }

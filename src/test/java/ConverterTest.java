@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ConverterTest {
 
-    private final Converter converter = new Converter(new DropwaveFunction());
+    private final Converter converter = new Converter(new DropwaveFunction(6));
     private final Random random = new Random();
 
     @org.junit.jupiter.api.Test
