@@ -7,8 +7,6 @@ import model.SolutionScore;
 import java.sql.*;
 import java.util.List;
 
-import static javax.swing.UIManager.getInt;
-
 public class DatabaseConnection {
 
     private Connection connection;
@@ -77,6 +75,7 @@ public class DatabaseConnection {
     }
 
     public void insertCalculation(SolutionScore solutionScore) {
+        long startTime = System.nanoTime();
         final String sql = "INSERT INTO CALCULATION(NAME) VALUES('TEST');";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             connection.setAutoCommit(false);
@@ -89,69 +88,62 @@ public class DatabaseConnection {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
+        long endTime = System.nanoTime();
+        long durationMs = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
+        System.out.println("Czas wykonania: " + durationMs + "ms");
     }
 
     private int ExecuteScalar(PreparedStatement ps) throws SQLException {
-        PreparedStatement getId = getInsertedIdStatement();
-        ps.execute();
-        ResultSet resultSet = getId.executeQuery();
-        resultSet.next();
-        return resultSet.getInt(1);
+        try (PreparedStatement getId = getInsertedIdStatement()) {
+            ps.execute();
+            ResultSet resultSet = getId.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1);
+        }
     }
 
     public void insertEpoch(List<EvaluatedIndividual> evaluatedIndividuals, int calculationId, int epochNumber) {
-        try {
-            PreparedStatement ps = getInsertEpochStatement(epochNumber, calculationId);
+        try (PreparedStatement ps = getInsertEpochStatement()) {
+            ps.setInt(1, epochNumber);
+            ps.setInt(2, calculationId);
             int epochId = ExecuteScalar(ps);
-            evaluatedIndividuals.forEach(ei -> insertIndividual(ei, epochId));
-            getInsertIndividualStatement().executeBatch();
+            InsertIndividuals(evaluatedIndividuals, epochId);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    private PreparedStatement insertedIdStatement;
+
 
     private PreparedStatement getInsertedIdStatement() throws SQLException {
-        if (insertedIdStatement == null) {
-            insertedIdStatement = connection.prepareStatement("SELECT last_insert_rowid();");
-        }
-        return insertedIdStatement;
+        return connection.prepareStatement("SELECT last_insert_rowid()");
     }
 
-    private PreparedStatement insertEpoch;
-
-    private PreparedStatement getInsertEpochStatement(int calculationId, int epochNumber) throws SQLException {
-        if (insertEpoch == null) {
-            final String sql = "INSERT INTO EPOCH(EPOCH_NUMBER, CALCULATION_ID) VALUES(?,?);";
-            insertEpoch = connection.prepareStatement(sql);
-        }
-        insertEpoch.setInt(1, epochNumber);
-        insertEpoch.setInt(2, calculationId);
-        return insertEpoch;
+    private PreparedStatement getInsertEpochStatement() throws SQLException {
+        final String sql = "INSERT INTO EPOCH(EPOCH_NUMBER, CALCULATION_ID) VALUES(?,?)";
+        return connection.prepareStatement(sql);
     }
 
-
-    private PreparedStatement insertIndividual;
 
     private PreparedStatement getInsertIndividualStatement() throws SQLException {
-
-        if (insertIndividual == null) {
-            final String sql = "INSERT INTO INDIVIDUAL(X1, X2, Y, SCORE, EPOCH_ID) VALUES(?,?,?,?,?)";
-            insertIndividual = connection.prepareStatement(sql);
-        }
-        return insertIndividual;
+        final String sql = "INSERT INTO INDIVIDUAL(X1, X2, Y, SCORE, EPOCH_ID) VALUES(?,?,?,?,?)";
+        return connection.prepareStatement(sql);
     }
 
-    private void insertIndividual(EvaluatedIndividual evaluatedIndividual, int epochId) {
+    private void InsertIndividuals(List<EvaluatedIndividual> evaluatedIndividuals, int epochId) throws SQLException {
+        try (PreparedStatement insertIndividualStatement = getInsertIndividualStatement()) {
+            evaluatedIndividuals.forEach(ei -> insertIndividual(insertIndividualStatement, ei, epochId));
+            getInsertIndividualStatement().executeBatch();
+        }
+    }
+
+    private void insertIndividual(PreparedStatement ps, EvaluatedIndividual evaluatedIndividual, int epochId) {
         Individual individual = evaluatedIndividual.getIndividual();
-        double score = evaluatedIndividual.getScore();
         try {
-            PreparedStatement ps = getInsertIndividualStatement();
             ps.setDouble(1, individual.getX1());
             ps.setDouble(2, individual.getX2());
-            ps.setDouble(3, score);
-            ps.setDouble(4, score);
+            ps.setDouble(3, evaluatedIndividual.getY());
+            ps.setDouble(4, evaluatedIndividual.getScore());
             ps.setInt(5, epochId);
             ps.addBatch();
         } catch (SQLException e) {

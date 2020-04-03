@@ -1,11 +1,13 @@
 package model;
 
 public class EvaluatedIndividual implements Comparable<EvaluatedIndividual> {
-    private Individual individual;
-    private double score;
+    private final Individual individual;
+    private final double y;
+    private final double score;
 
-    public EvaluatedIndividual(Individual individual, double score) {
+    public EvaluatedIndividual(Individual individual, double y, double score) {
         this.individual = individual;
+        this.y = y;
         this.score = score;
     }
 
@@ -15,6 +17,10 @@ public class EvaluatedIndividual implements Comparable<EvaluatedIndividual> {
 
     public double getScore() {
         return score;
+    }
+
+    public double getY() {
+        return y;
     }
 
     @Override

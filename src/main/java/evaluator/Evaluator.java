@@ -18,7 +18,7 @@ public class Evaluator {
     public List<EvaluatedIndividual> evaluation(List<Individual> population) {
         ArrayList<EvaluatedIndividual> evaluatedIndividuals = new ArrayList<>();
         for (Individual individual : population) {
-            evaluatedIndividuals.add(new EvaluatedIndividual(individual, function.evaluate(individual.getX1(), individual.getX2())));
+            evaluatedIndividuals.add(new EvaluatedIndividual(individual, function.fun(individual.getX1(), individual.getX2()), function.evaluate(individual.getX1(), individual.getX2())));
         }
         return evaluatedIndividuals;
     }
