@@ -1,5 +1,6 @@
 package javaFxApp;
 
+import database.DatabaseConnection;
 import javafx.scene.chart.XYChart;
 import model.SolutionScore;
 import solution.SolutionModel;
@@ -34,6 +35,8 @@ public class PlotController {
         myOwnStage = stage;
         this.solutionModel = solutionModel;
         solutionScore = solutionModel.learn(amountOfEras);
+        DatabaseConnection databaseConnection = new DatabaseConnection("database.db");
+        databaseConnection.insertCalculation(solutionScore);
         groupNameLabel.setText("Time Of Calculations: " + solutionScore.getTimeOfExecution() + "ms");
         bestScore.setText(solutionScore.bestScoresOfEpochs().get(amountOfEras - 1).toString());
         setChartData(solutionScore.mediumScoresOfEpochs());

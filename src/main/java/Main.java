@@ -39,7 +39,5 @@ public class Main {
         System.out.println("Czas wykonania: " + score.getTimeOfExecution() + "ms");
         DatabaseConnection databaseConnection = new DatabaseConnection("t7");
         databaseConnection.insertCalculation(score);
-
     }
-
 }
