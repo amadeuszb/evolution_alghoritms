@@ -49,6 +49,7 @@ public class PlotController {
             actual++;
             seriesOfScores.getData().add(new XYChart.Data<>(String.valueOf(actual), mean));
         }
+        chart.setCreateSymbols(false);
         chart.getData().clear();
         chart.getData().add(seriesOfScores);
     }

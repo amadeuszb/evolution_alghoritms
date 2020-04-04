@@ -133,7 +133,7 @@ public class DatabaseConnection {
     private void InsertIndividuals(List<EvaluatedIndividual> evaluatedIndividuals, int epochId) throws SQLException {
         try (PreparedStatement insertIndividualStatement = getInsertIndividualStatement()) {
             evaluatedIndividuals.forEach(ei -> insertIndividual(insertIndividualStatement, ei, epochId));
-            getInsertIndividualStatement().executeBatch();
+            insertIndividualStatement.executeBatch();
         }
     }
 
