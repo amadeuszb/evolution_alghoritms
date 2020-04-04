@@ -1,8 +1,7 @@
-package javaFxApp;
-
 import crossover.CrossoverType;
 import function.DropwaveFunction;
 import function.Function;
+import javaFxApp.PlotController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,7 +83,7 @@ public class Controller implements Initializable {
     private void onButtonCalculate(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("../Plot.fxml"));
+            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("Plot.fxml"));
             Parent root = myLoader.load();
             myLoader.<PlotController>getController().initStagePlot(stage, buildSolution(), valueOfLabelInt(eras));
             Scene scene = new Scene(root);
