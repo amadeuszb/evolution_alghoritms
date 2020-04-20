@@ -3,7 +3,7 @@ package crossover;
 import java.util.Arrays;
 import java.util.Random;
 
-public class OnePointCrossover extends PointCrossover implements CrossoverMethod {
+public class OnePointCrossover extends PointCrossover implements CrossoverMethodBinary {
     private final Random random;
 
     public OnePointCrossover(Random random) {

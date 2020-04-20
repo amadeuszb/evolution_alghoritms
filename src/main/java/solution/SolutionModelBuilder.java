@@ -2,10 +2,10 @@ package solution;
 
 import converter.ByteSwitcher;
 import converter.Converter;
-import crossover.CrossoverMethod;
+import crossover.CrossoverMethodBinary;
 import crossover.CrossoverMethodFactory;
 import crossover.CrossoverType;
-import crossover.PopulationCrossover;
+import crossover.PopulationCrossoverBinary;
 import elite.EliteStrategy;
 import evaluator.Evaluator;
 import function.Function;
@@ -95,11 +95,11 @@ public class SolutionModelBuilder {
         List<Individual> population = new Initializer(random).getInitialPopulation(populationSize,
                 function.getBeginOfSquare(), function
                 .getEndOfSquare());
-        CrossoverMethod crossoverMethod = new CrossoverMethodFactory(random).getCrossoverMethod(crossoverType);
+        CrossoverMethodBinary crossoverMethod = new CrossoverMethodFactory(random).getCrossoverMethod(crossoverType);
         SelectionMethod selectionMethod = this.selectionMethod;
         Converter converter = new Converter(function);
         Mutator mutator = new MutatorFactory(function, converter, random, byteSwitcher).getMutator(mutationType);
-        PopulationCrossover populationCrossover = new PopulationCrossover(converter, crossoverMethod,
+        PopulationCrossoverBinary populationCrossover = new PopulationCrossoverBinary(converter, crossoverMethod,
                 crossoverProbability, random);
         PopulationMutator populationMutator = new PopulationMutator(converter, mutator, mutationProbability, random);
         Evaluator evaluator = new Evaluator(function);

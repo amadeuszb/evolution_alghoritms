@@ -1,6 +1,6 @@
 package solution;
 
-import crossover.PopulationCrossover;
+import crossover.PopulationCrossoverBinary;
 import elite.EliteStrategy;
 import evaluator.Evaluator;
 import inversion.PopulationInverter;
@@ -16,14 +16,14 @@ public class SolutionModel {
     private final Evaluator evaluator;
     List<Individual> population;
     private final SelectionMethod selectionMethod;
-    private final PopulationCrossover populationCrossover;
+    private final PopulationCrossoverBinary populationCrossover;
     private final PopulationMutator populationMutator;
     private final PopulationInverter populationInverter;
     private final EliteStrategy eliteStrategy;
     private final int selectionCount;
 
     public SolutionModel(List<Individual> population, Evaluator evaluator, SelectionMethod selectionMethod,
-                         PopulationCrossover populationCrossover, PopulationMutator populationMutator,
+                         PopulationCrossoverBinary populationCrossover, PopulationMutator populationMutator,
                          PopulationInverter populationInverter, EliteStrategy eliteStrategy, int selectionCount) {
         this.population = population;
         this.evaluator = evaluator;

@@ -2,7 +2,7 @@ package crossover;
 
 import java.util.Arrays;
 
-public class HomogeneousCrossover implements CrossoverMethod {
+public class HomogeneousCrossover implements CrossoverMethodBinary {
     @Override
     public byte[][] crossover(byte[] individualOne, byte[] individualTwo) {
         int sizeOfChromosome = individualOne.length;

@@ -9,7 +9,7 @@ public class CrossoverMethodFactory {
         this.random = random;
     }
 
-    public CrossoverMethod getCrossoverMethod(CrossoverType crossoverType) {
+    public CrossoverMethodBinary getCrossoverMethod(CrossoverType crossoverType) {
         switch (crossoverType) {
             case OnePoint:
                 return new OnePointCrossover(random);

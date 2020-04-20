@@ -1,5 +1,5 @@
 package crossover;
 
-public interface CrossoverMethod {
+public interface CrossoverMethodBinary {
     byte[][] crossover(byte[] individualOne, byte[] individualTwo);
 }
