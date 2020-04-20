@@ -1,114 +1,35 @@
 package solution;
 
-import converter.ByteSwitcher;
-import converter.Converter;
-import crossover.CrossoverMethodBinary;
-import crossover.CrossoverMethodFactory;
 import crossover.CrossoverType;
-import crossover.PopulationCrossoverBinary;
-import elite.EliteStrategy;
-import evaluator.Evaluator;
 import function.Function;
-import initializer.Initializer;
-import inversion.InversionOperator;
-import inversion.PopulationInverter;
-import model.Individual;
 import mutation.MutationType;
-import mutation.Mutator;
-import mutation.MutatorFactory;
-import mutation.PopulationMutator;
 import selection.SelectionMethod;
 
-import java.util.List;
 import java.util.Random;
 
-public class SolutionModelBuilder {
-    private int populationSize;
-    private Function function;
-    private SelectionMethod selectionMethod;
-    private CrossoverType crossoverType;
-    private MutationType mutationType;
-    private double mutationProbability;
-    private double crossoverProbability;
-    private double inversionProbability;
-    private Random random = new Random();
-    private ByteSwitcher byteSwitcher = new ByteSwitcher();
-    private int elitesCount;
-    private double selectionPercentage;
+public interface SolutionModelBuilder {
 
-    public SolutionModelBuilder withPopulationSize(int populationSize) {
-        this.populationSize = populationSize;
-        return this;
-    }
+    SolutionModelBuilder withPopulationSize(int populationSize);
 
-    public SolutionModelBuilder withFunction(Function function) {
-        this.function = function;
-        return this;
-    }
+    SolutionModelBuilder withFunction(Function function);
 
-    public SolutionModelBuilder withSelectionMethod(SelectionMethod selectionMethod) {
-        this.selectionMethod = selectionMethod;
-        return this;
-    }
+    SolutionModelBuilder withSelectionMethod(SelectionMethod selectionMethod);
 
-    public SolutionModelBuilder withCrossoverType(CrossoverType crossoverType) {
-        this.crossoverType = crossoverType;
-        return this;
-    }
+    SolutionModelBuilder withCrossoverType(CrossoverType crossoverType);
 
-    public SolutionModelBuilder withMutationType(MutationType mutationType) {
-        this.mutationType = mutationType;
-        return this;
-    }
+    SolutionModelBuilder withMutationType(MutationType mutationType);
 
-    public SolutionModelBuilder withMutationProbability(double mutationProbability) {
-        this.mutationProbability = mutationProbability;
-        return this;
-    }
+    SolutionModelBuilder withMutationProbability(double mutationProbability);
 
-    public SolutionModelBuilder withCrossoverProbability(double crossoverProbability) {
-        this.crossoverProbability = crossoverProbability;
-        return this;
-    }
+    SolutionModelBuilder withCrossoverProbability(double crossoverProbability);
 
-    public SolutionModelBuilder withInversionProbability(double inversionProbability) {
-        this.inversionProbability = inversionProbability;
-        return this;
-    }
+    SolutionModelBuilder withInversionProbability(double inversionProbability);
 
-    public SolutionModelBuilder withRandom(Random random) {
-        this.random = random;
-        return this;
-    }
+    SolutionModelBuilder withRandom(Random random);
 
-    public SolutionModelBuilder withElitesCount(int elitesCount) {
-        this.elitesCount = elitesCount;
-        return this;
-    }
+    SolutionModelBuilder withElitesCount(int elitesCount);
 
-    public SolutionModelBuilder withSelectionPercentage(double selectionPercentage) {
-        this.selectionPercentage = selectionPercentage;
-        return this;
-    }
+    SolutionModelBuilder withSelectionPercentage(double selectionPercentage);
 
-    public SolutionModel build() {
-        List<Individual> population = new Initializer(random).getInitialPopulation(populationSize,
-                function.getBeginOfSquare(), function
-                .getEndOfSquare());
-        CrossoverMethodBinary crossoverMethod = new CrossoverMethodFactory(random).getCrossoverMethod(crossoverType);
-        SelectionMethod selectionMethod = this.selectionMethod;
-        Converter converter = new Converter(function);
-        Mutator mutator = new MutatorFactory(function, converter, random, byteSwitcher).getMutator(mutationType);
-        PopulationCrossoverBinary populationCrossover = new PopulationCrossoverBinary(converter, crossoverMethod,
-                crossoverProbability, random);
-        PopulationMutator populationMutator = new PopulationMutator(converter, mutator, mutationProbability, random);
-        Evaluator evaluator = new Evaluator(function);
-        InversionOperator inversionOperator = new InversionOperator(random);
-        PopulationInverter populationInverter = new PopulationInverter(inversionOperator, converter, random,
-                inversionProbability);
-        EliteStrategy eliteStrategy = new EliteStrategy(elitesCount);
-        int selectionCount = (int) ((populationSize - elitesCount) * selectionPercentage);
-        return new SolutionModel(population, evaluator, selectionMethod, populationCrossover, populationMutator,
-                populationInverter, eliteStrategy, selectionCount);
-    }
+    SolutionModel build();
 }

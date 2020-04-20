@@ -4,6 +4,7 @@ import database.DatabaseConnection;
 import javafx.scene.chart.XYChart;
 import model.SolutionScore;
 import solution.SolutionModel;
+import solution.SolutionModelBinary;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;

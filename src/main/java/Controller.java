@@ -15,8 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mutation.MutationType;
 import selection.*;
-import solution.SolutionModel;
-import solution.SolutionModelBuilder;
+import solution.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -111,7 +110,7 @@ public class Controller implements Initializable {
                 selectionMethod = new TournamentSelection(random, valueOfLabelInt(selectionParameter));
                 break;
         }
-        SolutionModelBuilder modelBuilder = new SolutionModelBuilder();
+        SolutionModelBuilder modelBuilder = new SolutionModelBuilderReal();
         modelBuilder.withCrossoverType(methodCrossover.getValue())
                 .withFunction(function)
                 .withMutationType(methodMutation.getValue())

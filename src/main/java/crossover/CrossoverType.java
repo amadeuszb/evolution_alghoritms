@@ -4,5 +4,7 @@ public enum CrossoverType {
     OnePoint,
     TwoPoints,
     ThreePoints,
-    Homogeneous
+    Homogeneous,
+    Arithmetic,
+    Heuristic
 }
