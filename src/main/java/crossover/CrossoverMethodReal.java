@@ -2,6 +2,8 @@ package crossover;
 
 import model.Individual;
 
+import java.util.Collection;
+
 public interface CrossoverMethodReal {
-    Individual[] crossover(Individual first, Individual second);
+    Collection<Individual> crossover(Individual first, Individual second);
 }

@@ -2,6 +2,8 @@ package crossover;
 
 import model.Individual;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 public class ArithmeticCrossover implements CrossoverMethodReal {
@@ -21,15 +23,15 @@ public class ArithmeticCrossover implements CrossoverMethodReal {
     }
 
     @Override
-    public Individual[] crossover(Individual first, Individual second) {
+    public Collection<Individual> crossover(Individual first, Individual second) {
         double k = getK();
         double firstX1 = k * first.getX1() + (1 - k) * second.getX1();
         double secondX1 = k * second.getX1() + (1 - k) * first.getX1();
         double firstX2 = k * first.getX2() + (1 - k) * second.getX2();
         double secondX2 = k * second.getX2() + (1 - k) * first.getX2();
-        Individual[] result = new Individual[2];
-        result[0] = new Individual(firstX1, secondX1);
-        result[1] = new Individual(firstX2, secondX2);
+        ArrayList<Individual> result = new ArrayList<>();
+        result.add(new Individual(firstX1, secondX1));
+        result.add(new Individual(firstX2, secondX2));
         return result;
     }
 }

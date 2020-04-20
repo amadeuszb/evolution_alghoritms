@@ -22,11 +22,11 @@ public class PopulationCrossoverReal implements PopulationCrossover {
     public List<Individual> crossover(List<Individual> population, int sizeOfPopulation) {
         ArrayList<Individual> newPopulation = new ArrayList<>();
         int selectedPopulationSize = population.size();
-        for (int i = 0; i < sizeOfPopulation; i += 2) {
+        while (newPopulation.size() < sizeOfPopulation) {
             Individual ione = population.get(random.nextInt(selectedPopulationSize));
             Individual itwo = population.get(random.nextInt(selectedPopulationSize));
             if (random.nextDouble() < crossoverProbability) {
-                newPopulation.addAll(Arrays.asList(crossoverMethod.crossover(ione, itwo)));
+                newPopulation.addAll(crossoverMethod.crossover(ione, itwo));
             } else {
                 newPopulation.add(ione);
                 newPopulation.add(itwo);
